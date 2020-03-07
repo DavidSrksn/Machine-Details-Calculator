@@ -80,8 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				9A9E2A072414008C0000340A /* Machine Details */,
-				9A9E2A1E2414008F0000340A /* Machine DetailsTests */,
-				9A9E2A292414008F0000340A /* Machine DetailsUITests */,
+				9A9E2A38241401BA0000340A /* Additionals */,
 				9A9E2A062414008C0000340A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -99,13 +98,7 @@
 		9A9E2A072414008C0000340A /* Machine Details */ = {
 			isa = PBXGroup;
 			children = (
-				9A9E2A082414008C0000340A /* AppDelegate.swift */,
-				9A9E2A0A2414008C0000340A /* SceneDelegate.swift */,
 				9A9E2A0C2414008C0000340A /* ViewController.swift */,
-				9A9E2A0E2414008C0000340A /* Main.storyboard */,
-				9A9E2A112414008F0000340A /* Assets.xcassets */,
-				9A9E2A132414008F0000340A /* LaunchScreen.storyboard */,
-				9A9E2A162414008F0000340A /* Info.plist */,
 			);
 			path = "Machine Details";
 			sourceTree = "<group>";
@@ -126,6 +119,21 @@
 				9A9E2A2C2414008F0000340A /* Info.plist */,
 			);
 			path = "Machine DetailsUITests";
+			sourceTree = "<group>";
+		};
+		9A9E2A38241401BA0000340A /* Additionals */ = {
+			isa = PBXGroup;
+			children = (
+				9A9E2A082414008C0000340A /* AppDelegate.swift */,
+				9A9E2A0A2414008C0000340A /* SceneDelegate.swift */,
+				9A9E2A0E2414008C0000340A /* Main.storyboard */,
+				9A9E2A132414008F0000340A /* LaunchScreen.storyboard */,
+				9A9E2A112414008F0000340A /* Assets.xcassets */,
+				9A9E2A162414008F0000340A /* Info.plist */,
+				9A9E2A292414008F0000340A /* Machine DetailsUITests */,
+				9A9E2A1E2414008F0000340A /* Machine DetailsTests */,
+			);
+			path = Additionals;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
