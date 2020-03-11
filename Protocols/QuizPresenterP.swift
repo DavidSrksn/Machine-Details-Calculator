@@ -11,5 +11,5 @@ protocol QuizPresenterProtocol {
     
     func setupQuestionText(text: String)
 
-    func setupQuestions()
+    func changeQuestion()
 }

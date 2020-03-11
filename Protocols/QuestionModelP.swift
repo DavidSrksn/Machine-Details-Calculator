@@ -6,12 +6,13 @@
 //  Copyright © 2020 DavidS. All rights reserved.
 //
 
-import Foundation
 
-protocol QuestionModelProtocol{
-    var questionText: String {get}
+protocol QuizQuestionModelProtocol{
     
-    var options: [OptionViewModelProtocol] {get}
+    var text: String {get set}
     
-    func configureOptions() -> [OptionViewModelProtocol]
+    var options: [OptionViewModelProtocol] {get set}
+        
+    var nextQuestion: QuizQuestionModelProtocol? {get}
+    
 }

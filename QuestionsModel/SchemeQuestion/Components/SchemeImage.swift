@@ -9,24 +9,28 @@
 import UIKit
 
 extension UIImageView{
-    static func scheme(option: SchemeOption) -> UIImageView{
-        let imageView = UIImageView()
+    static func scheme(option: QuizOption) -> UIImageView?{
+        var imageView: UIImageView? 
         
         var image: UIImage?{
         switch option{
-        case .reductionGear:
+        case .A:
             return UIImage(named: "scheme")
-        case .withBelting:
+        case .B:
             return UIImage(named: "scheme")
-        case .withChainDrive:
+        case .C:
             return UIImage(named: "scheme")
+        case .D:
+            return nil
         }
     }
         
         if let image = image{
-            imageView.image = image
+            imageView = UIImageView()
+            imageView?.image = image
             return imageView
         }
+        
         return imageView
     }
     

@@ -18,8 +18,8 @@ class QuizPresenter:  QuizPresenterProtocol {
         view.setupQuestionText(question: text)
     }
     
-    func setupQuestions(){
-        
+    func changeQuestion() {
+        view.optionsTableView.reloadData()
+        view.setupQuestionText(question: view.questionModel.text)
     }
-    
 }

@@ -8,12 +8,11 @@
 
 import UIKit
 
-
 class QuizViewController: UIViewController, QuizViewControllerProtocol {
 
     var presenter: QuizPresenter!
     var router: QuizRouter!
-    var model: QuestionModelProtocol = SchemeQuestionModel()
+    var questionModel: QuizQuestionModel!
     
     let buttonsStackView = UIStackView()
     let nextButton = UIButton()
@@ -47,15 +46,34 @@ class QuizViewController: UIViewController, QuizViewControllerProtocol {
         
         let router = QuizRouter(viewController: self)
         self.router = router
+        
+        let model = self.router.navigationStack[0]
+        self.questionModel = model
     }
     
-    func configureNavigatingButton(button: UIButton, imageType: ImageType) -> UIButton{
+    func configureNavigatingButton(button: UIButton, type: ImageType) -> UIButton{
         button.backgroundColor = UIColor.Customs.lightBlack
         
         button.tintColor = .white
-        button.setImage(UIImage.setup(type: imageType), for: .normal)
+        button.setImage(UIImage.setup(type: type), for: .normal)
+        
+        nextButton.addTarget(.none, action: #selector(changeToNextQuestion), for: .touchUpInside)
+        backButton.addTarget(.none, action: #selector(changeToPreviousQuestion), for: .touchUpInside)
         
         return button
+    }
+    
+    @objc func changeToNextQuestion(){
+        let model: QuizQuestionModelProtocol? = self.questionModel.nextQuestion
+        if let model = model as? QuizQuestionModel{
+            router.presentNextQuestion(question: model)
+            presenter.changeQuestion()
+        }
+    }
+    
+    @objc func changeToPreviousQuestion(){
+            router.presentPreviousQuestion()
+            presenter.changeQuestion()
     }
     
     func configureFinishButton() -> UIButton{
@@ -81,9 +99,9 @@ class QuizViewController: UIViewController, QuizViewControllerProtocol {
         buttonsStackView.distribution = .fillEqually
         buttonsStackView.spacing = 10
         
-        buttonsStackView.addArrangedSubview(configureNavigatingButton(button: backButton, imageType: .back))
+        buttonsStackView.addArrangedSubview(configureNavigatingButton(button: backButton, type: .back))
         buttonsStackView.addArrangedSubview(configureFinishButton())
-        buttonsStackView.addArrangedSubview(configureNavigatingButton(button: nextButton, imageType: .next))
+        buttonsStackView.addArrangedSubview(configureNavigatingButton(button: nextButton, type: .next))
     }
     
     func configureQuestionLabel(){
@@ -104,7 +122,7 @@ class QuizViewController: UIViewController, QuizViewControllerProtocol {
         questionLabel.layer.borderColor = UIColor.black.cgColor
         questionLabel.layer.borderWidth = 0.5
         
-        setupQuestionText(question: model.questionText)
+        setupQuestionText(question: questionModel.text)
     }
 
     func configureQuestionStackView(){
@@ -123,26 +141,28 @@ class QuizViewController: UIViewController, QuizViewControllerProtocol {
 extension QuizViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let cellsCount: Int = model.options.count
+        let cellsCount: Int = questionModel.options.count
         let tableViewHeight = optionsTableView.frame.height
         
         return tableViewHeight / CGFloat(cellsCount)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return model.options.count
+        return questionModel.options.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = QuizTableViewCell()
-        let option = model.options[indexPath.row]
+        let option = questionModel.options[indexPath.row]
         cell.setupCell(option: option)
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell: QuizTableViewCell = tableView.cellForRow(at: indexPath) as? QuizTableViewCell{
-            cell.setSeletced(selectedCell: selectedCell())
+            cell.checkToUnselect(selectedCell: selectedCell())
+            cell.setSelectced(selectedCell: selectedCell())
+//            questionModel.options[indexPath.row].setSelected()
         }
         return
     }

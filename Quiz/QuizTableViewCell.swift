@@ -37,7 +37,7 @@ class QuizTableViewCell: UITableViewCell {
         }
     }
     
-    private func checkToUnselect(selectedCell: QuizTableViewCell?){
+    public func checkToUnselect(selectedCell: QuizTableViewCell?){
         if selectedCell != nil{
             selectedCell?.selectingAnimation()
             selectedCell?.changeStatus()
@@ -55,8 +55,7 @@ class QuizTableViewCell: UITableViewCell {
         }
     }
     
-    public func setSeletced(selectedCell: QuizTableViewCell?){
-        checkToUnselect(selectedCell: selectedCell)
+    public func setSelectced(selectedCell: QuizTableViewCell?){
         selectingAnimation()
         changeStatus()
         changeMark()
@@ -80,8 +79,11 @@ class QuizTableViewCell: UITableViewCell {
     public func setupCell(option: OptionViewModelProtocol){
         setupSelectedView()
         setupMarkImage()
-        
         configureOption(option: option)
+        
+        if option.isSelected == true{
+            setSelectced(selectedCell: self)
+        }
     }
     
     private func configureOption(option: OptionViewModelProtocol){

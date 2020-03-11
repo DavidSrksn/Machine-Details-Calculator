@@ -13,9 +13,12 @@ protocol QuizRouterProtocol {
     
     var viewController: QuizViewController {get set}
     
-    var navigationStack: [QuestionModelProtocol] {get set}
+    var navigationStack: [QuizQuestionModel] {get set}
         
-    func present(new questionModel: QuestionModelProtocol)
+    func presentNextQuestion(question: QuizQuestionModel)
+    
+    func presentPreviousQuestion()
+    
 }
 
 extension QuizRouterProtocol{

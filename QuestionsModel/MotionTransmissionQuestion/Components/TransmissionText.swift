@@ -9,18 +9,26 @@
 import UIKit
 
 extension UILabel{
-    static func transmission(option: TransmissionOption) -> UILabel{
-        let label = UILabel()
+    static func transmission(option: QuizOption) -> UILabel?{
+        var label: UILabel?
         
         var text: String?{
             switch option{
-            case .zeroAngle:
+            case .A:
                 return "0 градусов"
-            case .rightAngle:
+            case .B:
                 return "прямой угол"
+            case .C, .D:
+                return nil
             }
         }
         
+        if let text = text{
+            label = UILabel()
+            label?.textAlignment = .center
+            label?.font = UIFont(name: "HelveticaNeue", size: 25)
+            label?.text = text
+        }
         return label
     }
     
