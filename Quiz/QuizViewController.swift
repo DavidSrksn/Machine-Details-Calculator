@@ -162,7 +162,7 @@ extension QuizViewController: UITableViewDelegate, UITableViewDataSource{
         if let cell: QuizTableViewCell = tableView.cellForRow(at: indexPath) as? QuizTableViewCell{
             cell.checkToUnselect(selectedCell: selectedCell())
             cell.setSelectced(selectedCell: selectedCell())
-//            questionModel.options[indexPath.row].setSelected()
+            questionModel.setOptionSelected(index: indexPath.row)
         }
         return
     }

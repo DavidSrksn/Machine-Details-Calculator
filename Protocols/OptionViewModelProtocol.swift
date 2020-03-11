@@ -8,27 +8,23 @@
 
 import UIKit
 
-protocol OptionViewModelProtocol{
+protocol OptionViewModelProtocol: class{
     
     var view: UIView {get}
     
     var isSelected: Bool {get set}
+    
+    func isEmpty() -> Bool
     
     func setup(option: QuizOption)
     
 }
 
 extension OptionViewModelProtocol{
-//    mutating func setSelected(){
-//        let alreadySelectedIndex: Int? = question.options.firstIndex { (option) -> Bool in
-//            return option.isSelected == true
-//        }
-//        
-//        if let alreadySelectedIndex = alreadySelectedIndex{
-//            question.options[alreadySelectedIndex].isSelected = false
-//        }
-//        
-//        isSelected = true
-//    }
-    
+    public func isEmpty() -> Bool{
+        if self.view.subviews.isEmpty{
+            return true
+        }
+        return false
+    }
 }

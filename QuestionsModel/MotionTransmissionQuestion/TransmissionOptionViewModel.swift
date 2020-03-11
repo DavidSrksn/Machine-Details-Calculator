@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct TransmissionOptionViewModel: OptionViewModelProtocol{
+class TransmissionOptionViewModel: OptionViewModelProtocol{
     
     var view = UIView()
     

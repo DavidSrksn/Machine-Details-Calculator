@@ -19,8 +19,8 @@ class QuizRouter: QuizRouterProtocol {
     var navigationStack: [QuizQuestionModel] = [QuizQuestionModel(type: .scheme)]
     
     func presentNextQuestion(question: QuizQuestionModel){
-        let indexOfModel: Int? = navigationStack.firstIndex { (question) -> Bool in
-            question.text == question.text
+        let indexOfModel: Int? = navigationStack.firstIndex { (savedQuestion) -> Bool in
+            savedQuestion.text == question.text
         }
         if let nextModelIndex = indexOfModel{
             viewController.questionModel = navigationStack[nextModelIndex]

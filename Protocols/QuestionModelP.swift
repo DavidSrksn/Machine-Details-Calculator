@@ -15,4 +15,5 @@ protocol QuizQuestionModelProtocol{
         
     var nextQuestion: QuizQuestionModelProtocol? {get}
     
+    func setOptionSelected(index: Int)
 }

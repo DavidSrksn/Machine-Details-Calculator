@@ -10,3 +10,4 @@
 public protocol CaseSequence {
   static var allCases: [Self] {get}
 }
+

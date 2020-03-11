@@ -44,6 +44,7 @@ class QuizTableViewCell: UITableViewCell {
             selectedCell?.changeMark()
         }
     }
+    
     private func selectingAnimation(){
         UIView.animate(withDuration: 0.25) {
             switch self.status{

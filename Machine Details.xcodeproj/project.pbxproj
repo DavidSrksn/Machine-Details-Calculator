@@ -8,11 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		9A6CD6CF241779E7009FC5F1 /* QuestionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6CD6CE241779E7009FC5F1 /* QuestionModel.swift */; };
-		9A6CD6D124178516009FC5F1 /* SchemeQuestionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6CD6D024178515009FC5F1 /* SchemeQuestionModel.swift */; };
-		9A6CD6D324178523009FC5F1 /* TransmissionQuestionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6CD6D224178523009FC5F1 /* TransmissionQuestionModel.swift */; };
 		9A6CD6D5241929B4009FC5F1 /* QuestionEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6CD6D4241929B4009FC5F1 /* QuestionEnum.swift */; };
 		9A6CD6D7241950C2009FC5F1 /* QuestionText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6CD6D6241950C2009FC5F1 /* QuestionText.swift */; };
-		9A716F9E241452530070E214 /* SchemeOptionsEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A716F9D241452530070E214 /* SchemeOptionsEnum.swift */; };
 		9A716FA324164BC90070E214 /* SchemeImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A716FA224164BC90070E214 /* SchemeImage.swift */; };
 		9A716FA524165A670070E214 /* Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A716FA424165A670070E214 /* Enum.swift */; };
 		9A716FAA241671860070E214 /* OptionViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A716FA9241671860070E214 /* OptionViewModelProtocol.swift */; };
@@ -22,7 +19,6 @@
 		9A716FB224168C8B0070E214 /* QuizRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A716FB124168C8B0070E214 /* QuizRouter.swift */; };
 		9A716FB424168CC40070E214 /* QuizRouterP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A716FB324168CC40070E214 /* QuizRouterP.swift */; };
 		9A716FBB241697C60070E214 /* TransmissionOptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A716FBA241697C60070E214 /* TransmissionOptionViewModel.swift */; };
-		9A716FBD241697DA0070E214 /* TransmissionOptionsEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A716FBC241697DA0070E214 /* TransmissionOptionsEnum.swift */; };
 		9A716FC0241698070070E214 /* TransmissionText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A716FBF241698070070E214 /* TransmissionText.swift */; };
 		9A9E2A092414008C0000340A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E2A082414008C0000340A /* AppDelegate.swift */; };
 		9A9E2A0B2414008C0000340A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E2A0A2414008C0000340A /* SceneDelegate.swift */; };
@@ -58,11 +54,8 @@
 
 /* Begin PBXFileReference section */
 		9A6CD6CE241779E7009FC5F1 /* QuestionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionModel.swift; sourceTree = "<group>"; };
-		9A6CD6D024178515009FC5F1 /* SchemeQuestionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SchemeQuestionModel.swift; path = "../../../../Library/Mobile Documents/com~apple~CloudDocs/.Trash/SchemeQuestionModel.swift"; sourceTree = "<group>"; };
-		9A6CD6D224178523009FC5F1 /* TransmissionQuestionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransmissionQuestionModel.swift; path = "../../../../Library/Mobile Documents/com~apple~CloudDocs/.Trash/TransmissionQuestionModel.swift"; sourceTree = "<group>"; };
 		9A6CD6D4241929B4009FC5F1 /* QuestionEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionEnum.swift; sourceTree = "<group>"; };
 		9A6CD6D6241950C2009FC5F1 /* QuestionText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionText.swift; sourceTree = "<group>"; };
-		9A716F9D241452530070E214 /* SchemeOptionsEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemeOptionsEnum.swift; sourceTree = "<group>"; };
 		9A716FA224164BC90070E214 /* SchemeImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemeImage.swift; sourceTree = "<group>"; };
 		9A716FA424165A670070E214 /* Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enum.swift; sourceTree = "<group>"; };
 		9A716FA9241671860070E214 /* OptionViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionViewModelProtocol.swift; sourceTree = "<group>"; };
@@ -72,7 +65,6 @@
 		9A716FB124168C8B0070E214 /* QuizRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizRouter.swift; sourceTree = "<group>"; };
 		9A716FB324168CC40070E214 /* QuizRouterP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizRouterP.swift; sourceTree = "<group>"; };
 		9A716FBA241697C60070E214 /* TransmissionOptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransmissionOptionViewModel.swift; sourceTree = "<group>"; };
-		9A716FBC241697DA0070E214 /* TransmissionOptionsEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransmissionOptionsEnum.swift; sourceTree = "<group>"; };
 		9A716FBF241698070070E214 /* TransmissionText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransmissionText.swift; sourceTree = "<group>"; };
 		9A9E2A052414008C0000340A /* Machine Details.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Machine Details.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A9E2A082414008C0000340A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -162,9 +154,7 @@
 		9A716FB7241693440070E214 /* MotionTransmissionQuestion */ = {
 			isa = PBXGroup;
 			children = (
-				9A6CD6D224178523009FC5F1 /* TransmissionQuestionModel.swift */,
 				9A716FBA241697C60070E214 /* TransmissionOptionViewModel.swift */,
-				9A716FBC241697DA0070E214 /* TransmissionOptionsEnum.swift */,
 				9A716FBE241697DE0070E214 /* Components */,
 			);
 			path = MotionTransmissionQuestion;
@@ -258,9 +248,7 @@
 		9A9E2A45241430280000340A /* SchemeQuestion */ = {
 			isa = PBXGroup;
 			children = (
-				9A6CD6D024178515009FC5F1 /* SchemeQuestionModel.swift */,
 				9A9E2A4D241448A90000340A /* SchemeOptionViewModel.swift */,
-				9A716F9D241452530070E214 /* SchemeOptionsEnum.swift */,
 				9A716FA124164B570070E214 /* Components */,
 			);
 			path = SchemeQuestion;
@@ -403,7 +391,6 @@
 				9A6CD6D5241929B4009FC5F1 /* QuestionEnum.swift in Sources */,
 				9A9E2A4B24143FC80000340A /* QuizTableViewCell.swift in Sources */,
 				9A9E2A4E241448A90000340A /* SchemeOptionViewModel.swift in Sources */,
-				9A716FBD241697DA0070E214 /* TransmissionOptionsEnum.swift in Sources */,
 				9A9E2A0D2414008C0000340A /* QuizViewController.swift in Sources */,
 				9A716FB224168C8B0070E214 /* QuizRouter.swift in Sources */,
 				9A9E2A422414261D0000340A /* UIImage.swift in Sources */,
@@ -413,14 +400,11 @@
 				9A9E2A092414008C0000340A /* AppDelegate.swift in Sources */,
 				9A716FA324164BC90070E214 /* SchemeImage.swift in Sources */,
 				9A9E2A4424142BD00000340A /* QuizPresenter.swift in Sources */,
-				9A716F9E241452530070E214 /* SchemeOptionsEnum.swift in Sources */,
-				9A6CD6D324178523009FC5F1 /* TransmissionQuestionModel.swift in Sources */,
 				9A716FB0241675440070E214 /* QuestionModelP.swift in Sources */,
 				9A6CD6D7241950C2009FC5F1 /* QuestionText.swift in Sources */,
 				9A9E2A0B2414008C0000340A /* SceneDelegate.swift in Sources */,
 				9A716FB424168CC40070E214 /* QuizRouterP.swift in Sources */,
 				9A716FC0241698070070E214 /* TransmissionText.swift in Sources */,
-				9A6CD6D124178516009FC5F1 /* SchemeQuestionModel.swift in Sources */,
 				9A716FAC241671CC0070E214 /* QuizPresenterP.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
