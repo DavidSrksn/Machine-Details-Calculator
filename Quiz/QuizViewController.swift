@@ -10,6 +10,7 @@ import UIKit
 
 class QuizViewController: UIViewController, QuizViewControllerProtocol {
 
+    var interactor: Interactor!
     var presenter: QuizPresenter!
     var router: QuizRouter!
     var questionModel: QuizQuestionModel!
@@ -27,7 +28,7 @@ class QuizViewController: UIViewController, QuizViewControllerProtocol {
         setupViper()
         view.backgroundColor = .white
         optionsTableView.delegate = self
-        optionsTableView.dataSource = self 
+        optionsTableView.dataSource = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,6 +50,10 @@ class QuizViewController: UIViewController, QuizViewControllerProtocol {
         
         let model = self.router.navigationStack[0]
         self.questionModel = model
+        
+        let result: ResultModel = ResultModel()
+        let interactor = Interactor(resultModel: result, model: model)
+        self.interactor = interactor
     }
     
     func configureNavigatingButton(button: UIButton, type: ImageType) -> UIButton{
@@ -64,16 +69,24 @@ class QuizViewController: UIViewController, QuizViewControllerProtocol {
     }
     
     @objc func changeToNextQuestion(){
-        let model: QuizQuestionModelProtocol? = self.questionModel.nextQuestion
+        interactor.changeResult()
+
+        var model: QuizQuestionModelProtocol? = self.questionModel.nextQuestion
+        model?.result = interactor.questionModel.result
+        
         if let model = model as? QuizQuestionModel{
+            interactor.changeQuestionModel(model: model)
             router.presentNextQuestion(question: model)
             presenter.changeQuestion()
         }
     }
     
     @objc func changeToPreviousQuestion(){
+        if let previuosRestultModel = router.penultimateResultModel(){
+            interactor.questionModel.result = previuosRestultModel
             router.presentPreviousQuestion()
             presenter.changeQuestion()
+        }
     }
     
     func configureFinishButton() -> UIButton{
@@ -130,7 +143,7 @@ class QuizViewController: UIViewController, QuizViewControllerProtocol {
         
         optionsTableView.translatesAutoresizingMaskIntoConstraints = false
         
-        optionsTableView.topAnchor.constraint(equalTo: questionLabel.bottomAnchor, constant: 10).isActive = true
+        optionsTableView.topAnchor.constraint(equalTo: questionLabel.bottomAnchor).isActive = true
         optionsTableView.bottomAnchor.constraint(equalTo: buttonsStackView.topAnchor, constant: -5).isActive = true
         optionsTableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         optionsTableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true

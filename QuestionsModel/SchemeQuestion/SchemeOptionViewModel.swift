@@ -19,6 +19,19 @@ class SchemeOptionViewModel: OptionViewModelProtocol{
     
     var isSelected: Bool = false
         
+    public func result(resultModel: inout ResultModel, option: QuizOption) {
+        switch option{
+        case .A:
+            return
+        case .B:
+            resultModel.chainTransmission = ChainTransmission()
+        case .C:
+            resultModel.beltTransmission = BeltTransmission()
+        case .D:
+            return
+        }
+    }
+    
     public func setup(option: QuizOption){
         setupSchemeImageView(option: option)
     }

@@ -16,6 +16,8 @@ protocol OptionViewModelProtocol: class{
     
     func isEmpty() -> Bool
     
+    func result(resultModel: inout ResultModel, option: QuizOption)
+    
     func setup(option: QuizOption)
     
 }

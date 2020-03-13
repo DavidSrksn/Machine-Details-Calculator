@@ -8,11 +8,35 @@
 
 import UIKit
 
+/* Варианты угла передачи движения в редукторе
+A - 0 градусов
+B - 90 градусов
+*/
+
 class TransmissionOptionViewModel: OptionViewModelProtocol{
     
     var view = UIView()
     
     var isSelected: Bool = false
+    
+    public func result(resultModel: inout ResultModel, option: QuizOption) {
+        switch option{
+        case .A:
+            removeGearType(resultModel: &resultModel, gearTypes: [.worm, .conical])
+        case .B:
+            removeGearType(resultModel: &resultModel, gearTypes: [.cylindrical, .wave, .planetary])
+        case .C, .D:
+            return
+        }
+    }
+    
+    private func removeGearType(resultModel: inout ResultModel, gearTypes toRemove: [GearboxType]) {
+        for type in toRemove{
+            resultModel.gearbox.type.removeAll { (gearType) -> Bool in
+                gearType == type
+            }
+        }
+    }
     
     public func setup(option: QuizOption){
         setupSchemeLabel(option: option)

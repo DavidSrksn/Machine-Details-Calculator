@@ -39,4 +39,14 @@ class QuizRouter: QuizRouterProtocol {
             viewController.questionModel = navigationStack.last!
         }
     }
+    
+    public func penultimateResultModel() -> ResultModel? {
+        let penultimateQuestionModelIndex: Int = navigationStack.count - 2
+        if penultimateQuestionModelIndex >= 0{
+            let penultimateQuestionModel = navigationStack[penultimateQuestionModelIndex].result
+            return penultimateQuestionModel
+        }
+        return nil
+    }
+    
 }

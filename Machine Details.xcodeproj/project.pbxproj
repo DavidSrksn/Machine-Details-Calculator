@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9A07DBDA241A1023004E4C25 /* QuizInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A07DBD9241A1023004E4C25 /* QuizInteractor.swift */; };
+		9A4C0942241A023600756BDB /* GearboxModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4C0941241A023600756BDB /* GearboxModel.swift */; };
+		9A4C0945241A028F00756BDB /* GearboxComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4C0944241A028F00756BDB /* GearboxComponents.swift */; };
 		9A6CD6CF241779E7009FC5F1 /* QuestionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6CD6CE241779E7009FC5F1 /* QuestionModel.swift */; };
 		9A6CD6D5241929B4009FC5F1 /* QuestionEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6CD6D4241929B4009FC5F1 /* QuestionEnum.swift */; };
 		9A6CD6D7241950C2009FC5F1 /* QuestionText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6CD6D6241950C2009FC5F1 /* QuestionText.swift */; };
@@ -33,6 +36,9 @@
 		9A9E2A4424142BD00000340A /* QuizPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E2A4324142BD00000340A /* QuizPresenter.swift */; };
 		9A9E2A4B24143FC80000340A /* QuizTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E2A4A24143FC80000340A /* QuizTableViewCell.swift */; };
 		9A9E2A4E241448A90000340A /* SchemeOptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E2A4D241448A90000340A /* SchemeOptionViewModel.swift */; };
+		9ABB8A74241A05870010D9DD /* ChainTransmissionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABB8A73241A05870010D9DD /* ChainTransmissionModel.swift */; };
+		9ABB8A77241A06330010D9DD /* BeltTransmissionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABB8A76241A06330010D9DD /* BeltTransmissionModel.swift */; };
+		9ABB8A79241A06660010D9DD /* ResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABB8A78241A06660010D9DD /* ResultModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +59,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9A07DBD9241A1023004E4C25 /* QuizInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizInteractor.swift; sourceTree = "<group>"; };
+		9A4C0941241A023600756BDB /* GearboxModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GearboxModel.swift; sourceTree = "<group>"; };
+		9A4C0944241A028F00756BDB /* GearboxComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GearboxComponents.swift; sourceTree = "<group>"; };
 		9A6CD6CE241779E7009FC5F1 /* QuestionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionModel.swift; sourceTree = "<group>"; };
 		9A6CD6D4241929B4009FC5F1 /* QuestionEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionEnum.swift; sourceTree = "<group>"; };
 		9A6CD6D6241950C2009FC5F1 /* QuestionText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionText.swift; sourceTree = "<group>"; };
@@ -85,6 +94,9 @@
 		9A9E2A4324142BD00000340A /* QuizPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizPresenter.swift; sourceTree = "<group>"; };
 		9A9E2A4A24143FC80000340A /* QuizTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizTableViewCell.swift; sourceTree = "<group>"; };
 		9A9E2A4D241448A90000340A /* SchemeOptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemeOptionViewModel.swift; sourceTree = "<group>"; };
+		9ABB8A73241A05870010D9DD /* ChainTransmissionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainTransmissionModel.swift; sourceTree = "<group>"; };
+		9ABB8A76241A06330010D9DD /* BeltTransmissionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeltTransmissionModel.swift; sourceTree = "<group>"; };
+		9ABB8A78241A06660010D9DD /* ResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +131,26 @@
 				9A716FB7241693440070E214 /* MotionTransmissionQuestion */,
 			);
 			path = QuestionsModel;
+			sourceTree = "<group>";
+		};
+		9A4C0940241A020A00756BDB /* ResultModel */ = {
+			isa = PBXGroup;
+			children = (
+				9ABB8A78241A06660010D9DD /* ResultModel.swift */,
+				9A4C0943241A026500756BDB /* Gearbox */,
+				9ABB8A72241A05500010D9DD /* СhainTransmission */,
+				9ABB8A75241A060A0010D9DD /* BeltTransmission */,
+			);
+			path = ResultModel;
+			sourceTree = "<group>";
+		};
+		9A4C0943241A026500756BDB /* Gearbox */ = {
+			isa = PBXGroup;
+			children = (
+				9A4C0941241A023600756BDB /* GearboxModel.swift */,
+				9A4C0944241A028F00756BDB /* GearboxComponents.swift */,
+			);
+			path = Gearbox;
 			sourceTree = "<group>";
 		};
 		9A6CD6D82419510D009FC5F1 /* QuestionEntity */ = {
@@ -173,6 +205,7 @@
 			children = (
 				9A9E2A3924141F700000340A /* Extensions */,
 				9A716FA62416714B0070E214 /* Protocols */,
+				9A4C0940241A020A00756BDB /* ResultModel */,
 				9A9E2A072414008C0000340A /* Quiz */,
 				9A29BA6E2416B5E100BDD7DD /* QuestionsModel */,
 				9A9E2A38241401BA0000340A /* Additionals */,
@@ -194,6 +227,7 @@
 			isa = PBXGroup;
 			children = (
 				9A9E2A0C2414008C0000340A /* QuizViewController.swift */,
+				9A07DBD9241A1023004E4C25 /* QuizInteractor.swift */,
 				9A9E2A4324142BD00000340A /* QuizPresenter.swift */,
 				9A6CD6D82419510D009FC5F1 /* QuestionEntity */,
 				9A716FB124168C8B0070E214 /* QuizRouter.swift */,
@@ -252,6 +286,22 @@
 				9A716FA124164B570070E214 /* Components */,
 			);
 			path = SchemeQuestion;
+			sourceTree = "<group>";
+		};
+		9ABB8A72241A05500010D9DD /* СhainTransmission */ = {
+			isa = PBXGroup;
+			children = (
+				9ABB8A73241A05870010D9DD /* ChainTransmissionModel.swift */,
+			);
+			path = "СhainTransmission";
+			sourceTree = "<group>";
+		};
+		9ABB8A75241A060A0010D9DD /* BeltTransmission */ = {
+			isa = PBXGroup;
+			children = (
+				9ABB8A76241A06330010D9DD /* BeltTransmissionModel.swift */,
+			);
+			path = BeltTransmission;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -393,11 +443,17 @@
 				9A9E2A4E241448A90000340A /* SchemeOptionViewModel.swift in Sources */,
 				9A9E2A0D2414008C0000340A /* QuizViewController.swift in Sources */,
 				9A716FB224168C8B0070E214 /* QuizRouter.swift in Sources */,
+				9A4C0942241A023600756BDB /* GearboxModel.swift in Sources */,
+				9ABB8A77241A06330010D9DD /* BeltTransmissionModel.swift in Sources */,
 				9A9E2A422414261D0000340A /* UIImage.swift in Sources */,
 				9A716FAA241671860070E214 /* OptionViewModelProtocol.swift in Sources */,
+				9A07DBDA241A1023004E4C25 /* QuizInteractor.swift in Sources */,
 				9A9E2A3F241424B00000340A /* Colors.swift in Sources */,
+				9A4C0945241A028F00756BDB /* GearboxComponents.swift in Sources */,
 				9A716FA524165A670070E214 /* Enum.swift in Sources */,
+				9ABB8A79241A06660010D9DD /* ResultModel.swift in Sources */,
 				9A9E2A092414008C0000340A /* AppDelegate.swift in Sources */,
+				9ABB8A74241A05870010D9DD /* ChainTransmissionModel.swift in Sources */,
 				9A716FA324164BC90070E214 /* SchemeImage.swift in Sources */,
 				9A9E2A4424142BD00000340A /* QuizPresenter.swift in Sources */,
 				9A716FB0241675440070E214 /* QuestionModelP.swift in Sources */,

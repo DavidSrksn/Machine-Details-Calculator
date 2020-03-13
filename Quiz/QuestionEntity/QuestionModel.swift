@@ -8,13 +8,15 @@
 
 import Foundation
 
-struct QuizQuestionModel: QuizQuestionModelProtocol {
+class QuizQuestionModel: QuizQuestionModelProtocol {
     
     var text: String
     
     var options: [OptionViewModelProtocol]
     
     var nextQuestion: QuizQuestionModelProtocol?      // Узнать: есть ли опасность рекурсивного вызова
+    
+    var result = ResultModel()
     
     init(type: QuizQestion) {
         
@@ -45,7 +47,6 @@ struct QuizQuestionModel: QuizQuestionModelProtocol {
         
         let selectedOption = options[index]
         selectedOption.isSelected = true
-        
     }
     
     private func nextQuestionOptionType(type: QuizQestion) -> QuizQestion?{
@@ -63,6 +64,17 @@ struct QuizQuestionModel: QuizQuestionModelProtocol {
             return QuizQuestionModel(type: optionType)
         }else {
             return nil
+        }
+    }
+    
+    public func changeResult() {
+        let optionIndex: Int? = options.firstIndex(where: { (option) -> Bool in
+            option.isSelected == true
+        })
+        
+        if let optionIndex = optionIndex{
+            let option: QuizOption = QuizOption.allCases[optionIndex]
+            selectedOption()?.result(resultModel: &self.result, option: option)
         }
     }
     
