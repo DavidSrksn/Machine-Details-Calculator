@@ -11,13 +11,11 @@ protocol QuizQuestionModelProtocol{
     
     var text: String {get set}
     
-    var result: ResultModel {get set}
+    var previousResult: ResultModel! {get set}
     
     var options: [OptionViewModelProtocol] {get set}
         
-    var nextQuestion: QuizQuestionModelProtocol? {get}
-    
-    mutating func changeResult()
+    mutating func changeResult(result: inout ResultModel)
     
     func setOptionSelected(index: Int)
 }

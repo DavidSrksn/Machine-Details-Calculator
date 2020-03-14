@@ -14,6 +14,7 @@ class QuizViewController: UIViewController, QuizViewControllerProtocol {
     var presenter: QuizPresenter!
     var router: QuizRouter!
     var questionModel: QuizQuestionModel!
+    var result = ResultModel()
     
     let buttonsStackView = UIStackView()
     let nextButton = UIButton()
@@ -51,9 +52,7 @@ class QuizViewController: UIViewController, QuizViewControllerProtocol {
         let model = self.router.navigationStack[0]
         self.questionModel = model
         
-        let result: ResultModel = ResultModel()
-        let interactor = Interactor(resultModel: result, model: model)
-        self.interactor = interactor
+        self.interactor = Interactor()
     }
     
     func configureNavigatingButton(button: UIButton, type: ImageType) -> UIButton{
@@ -69,24 +68,29 @@ class QuizViewController: UIViewController, QuizViewControllerProtocol {
     }
     
     @objc func changeToNextQuestion(){
-        interactor.changeResult()
+        interactor.changeResult(of: &questionModel, currentResult: &result)
 
-        var model: QuizQuestionModelProtocol? = self.questionModel.nextQuestion
-        model?.result = interactor.questionModel.result
+        let questionModel: QuizQuestionModelProtocol? = self.questionModel.nextQuestion(previousResult: result)
         
-        if let model = model as? QuizQuestionModel{
-            interactor.changeQuestionModel(model: model)
-            router.presentNextQuestion(question: model)
+        if let questionModel = questionModel as? QuizQuestionModel{
+            router.presentNextQuestion(question: questionModel)
             presenter.changeQuestion()
         }
     }
     
     @objc func changeToPreviousQuestion(){
-        if let previuosRestultModel = router.penultimateResultModel(){
-            interactor.questionModel.result = previuosRestultModel
-            router.presentPreviousQuestion()
-            presenter.changeQuestion()
-        }
+        router.presentPreviousQuestion()
+        result = questionModel.previousResult
+        presenter.changeQuestion()
+    }
+    
+    @objc func finishButtonAction(){
+        self.presentAlert(type: .finish, titleAndCompletion: [
+            ("Отменить", nil),
+            ("Ок", {(action)-> Void in
+                self.presentFullscreen(viewController: StartViewController())
+            })
+        ])
     }
     
     func configureFinishButton() -> UIButton{
@@ -94,6 +98,8 @@ class QuizViewController: UIViewController, QuizViewControllerProtocol {
         
         finishButton.setTitle("Finish", for: .normal)
         finishButton.setTitleColor(.black, for: .normal)
+        
+        finishButton.addTarget(nil, action: #selector(finishButtonAction), for: .touchUpInside)
         
         return finishButton
     }
@@ -173,10 +179,14 @@ extension QuizViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell: QuizTableViewCell = tableView.cellForRow(at: indexPath) as? QuizTableViewCell{
+            if !sameOptionSelected(didSelectCell: cell){
+                router.deleteNavigation(after: questionModel)
+            }
             cell.checkToUnselect(selectedCell: selectedCell())
             cell.setSelectced(selectedCell: selectedCell())
             questionModel.setOptionSelected(index: indexPath.row)
         }
+        
         return
     }
     
@@ -189,6 +199,19 @@ extension QuizViewController: UITableViewDelegate, UITableViewDataSource{
             }
         }
         return nil
+    }
+    
+    private func sameOptionSelected(didSelectCell: QuizTableViewCell) -> Bool{
+        let selectedOptionIndex = questionModel.options.firstIndex { (option) -> Bool in
+            option.isSelected
+        }
+        let selectedCellIndex = optionsTableView.visibleCells.firstIndex { (cell) -> Bool in
+            cell as? QuizTableViewCell == didSelectCell
+        }
+        if selectedCellIndex == selectedOptionIndex{
+            return true
+        }
+        return false
     }
     
 }

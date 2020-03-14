@@ -14,11 +14,11 @@ class QuizQuestionModel: QuizQuestionModelProtocol {
     
     var options: [OptionViewModelProtocol]
     
-    var nextQuestion: QuizQuestionModelProtocol?      // Узнать: есть ли опасность рекурсивного вызова
+    var nextQuestionType: QuizQestion?
     
-    var result = ResultModel()
+    var previousResult: ResultModel!
     
-    init(type: QuizQestion) {
+    init(type: QuizQestion, previousResult: ResultModel) {
         
         self.text = String.questionText(questionType: type)
         
@@ -31,10 +31,12 @@ class QuizQuestionModel: QuizQuestionModelProtocol {
             }
         }
         
-        self.nextQuestion = setupNextQuestion(type: type)
+        self.nextQuestionType = nextQuestionOptionType(type: type)
+        
+        self.previousResult = previousResult
     }
     
-    public func selectedOption() -> OptionViewModelProtocol? {
+    private func selectedOption() -> OptionViewModelProtocol? {
         let option: OptionViewModelProtocol? = options.first { (option) -> Bool in
             option.isSelected == true
         }
@@ -58,23 +60,21 @@ class QuizQuestionModel: QuizQuestionModelProtocol {
         }
     }
     
-    private func setupNextQuestion(type: QuizQestion) -> QuizQuestionModel? {
-        let optionType: QuizQestion? = nextQuestionOptionType(type: type)
-        if let optionType = optionType{
-            return QuizQuestionModel(type: optionType)
-        }else {
-            return nil
+    public func nextQuestion(previousResult: ResultModel) -> QuizQuestionModel? {
+        if let questionType = nextQuestionType{
+                return QuizQuestionModel(type: questionType, previousResult: previousResult )
         }
+        return nil
     }
     
-    public func changeResult() {
+    public func changeResult(result: inout ResultModel) {
         let optionIndex: Int? = options.firstIndex(where: { (option) -> Bool in
             option.isSelected == true
         })
         
         if let optionIndex = optionIndex{
             let option: QuizOption = QuizOption.allCases[optionIndex]
-            selectedOption()?.result(resultModel: &self.result, option: option)
+            selectedOption()?.result(resultModel: &result, option: option)
         }
     }
     

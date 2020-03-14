@@ -15,7 +15,7 @@ enum Status{
 
 class QuizTableViewCell: UITableViewCell {
     
-    var status: Status = .unselected
+    var status: Status = .unselected  // для анимации выбранной ячейки
     
     var markImageView = UIImageView()
     

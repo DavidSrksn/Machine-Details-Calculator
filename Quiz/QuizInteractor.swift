@@ -7,18 +7,9 @@
 //
 
 class Interactor{
-        
-    var questionModel: QuizQuestionModel!
     
-    func changeResult(){
-        questionModel.changeResult()
+    func changeResult(of questionModel: inout QuizQuestionModel, currentResult: inout ResultModel){
+        questionModel.changeResult(result: &currentResult)
     }
     
-    init(resultModel: ResultModel, model: QuizQuestionModel ) {
-        self.questionModel = model
-    }
-    
-    public func changeQuestionModel(model: QuizQuestionModel){
-        self.questionModel = model
-    }
 }

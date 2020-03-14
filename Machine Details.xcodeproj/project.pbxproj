@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		9A07DBDA241A1023004E4C25 /* QuizInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A07DBD9241A1023004E4C25 /* QuizInteractor.swift */; };
+		9A07DBDD241CC149004E4C25 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A07DBDC241CC149004E4C25 /* Alert.swift */; };
+		9A07DBE3241CFB6F004E4C25 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A07DBE2241CFB6F004E4C25 /* StartViewController.swift */; };
+		9A07DBE5241CFE2E004E4C25 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A07DBE4241CFE2E004E4C25 /* UIViewController.swift */; };
 		9A4C0942241A023600756BDB /* GearboxModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4C0941241A023600756BDB /* GearboxModel.swift */; };
 		9A4C0945241A028F00756BDB /* GearboxComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4C0944241A028F00756BDB /* GearboxComponents.swift */; };
 		9A6CD6CF241779E7009FC5F1 /* QuestionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6CD6CE241779E7009FC5F1 /* QuestionModel.swift */; };
@@ -60,6 +63,9 @@
 
 /* Begin PBXFileReference section */
 		9A07DBD9241A1023004E4C25 /* QuizInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizInteractor.swift; sourceTree = "<group>"; };
+		9A07DBDC241CC149004E4C25 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		9A07DBE2241CFB6F004E4C25 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
+		9A07DBE4241CFE2E004E4C25 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		9A4C0941241A023600756BDB /* GearboxModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GearboxModel.swift; sourceTree = "<group>"; };
 		9A4C0944241A028F00756BDB /* GearboxComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GearboxComponents.swift; sourceTree = "<group>"; };
 		9A6CD6CE241779E7009FC5F1 /* QuestionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionModel.swift; sourceTree = "<group>"; };
@@ -124,6 +130,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9A07DBE1241CFB5A004E4C25 /* Start */ = {
+			isa = PBXGroup;
+			children = (
+				9A07DBE2241CFB6F004E4C25 /* StartViewController.swift */,
+			);
+			path = Start;
+			sourceTree = "<group>";
+		};
 		9A29BA6E2416B5E100BDD7DD /* QuestionsModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -153,14 +167,16 @@
 			path = Gearbox;
 			sourceTree = "<group>";
 		};
-		9A6CD6D82419510D009FC5F1 /* QuestionEntity */ = {
+		9A6CD6D82419510D009FC5F1 /* QuizEntities */ = {
 			isa = PBXGroup;
 			children = (
 				9A6CD6CE241779E7009FC5F1 /* QuestionModel.swift */,
 				9A6CD6D4241929B4009FC5F1 /* QuestionEnum.swift */,
 				9A6CD6D6241950C2009FC5F1 /* QuestionText.swift */,
+				9A29BA6E2416B5E100BDD7DD /* QuestionsModel */,
+				9A4C0940241A020A00756BDB /* ResultModel */,
 			);
-			path = QuestionEntity;
+			path = QuizEntities;
 			sourceTree = "<group>";
 		};
 		9A716FA124164B570070E214 /* Components */ = {
@@ -205,9 +221,8 @@
 			children = (
 				9A9E2A3924141F700000340A /* Extensions */,
 				9A716FA62416714B0070E214 /* Protocols */,
-				9A4C0940241A020A00756BDB /* ResultModel */,
 				9A9E2A072414008C0000340A /* Quiz */,
-				9A29BA6E2416B5E100BDD7DD /* QuestionsModel */,
+				9A07DBE1241CFB5A004E4C25 /* Start */,
 				9A9E2A38241401BA0000340A /* Additionals */,
 				9A9E2A062414008C0000340A /* Products */,
 			);
@@ -229,7 +244,7 @@
 				9A9E2A0C2414008C0000340A /* QuizViewController.swift */,
 				9A07DBD9241A1023004E4C25 /* QuizInteractor.swift */,
 				9A9E2A4324142BD00000340A /* QuizPresenter.swift */,
-				9A6CD6D82419510D009FC5F1 /* QuestionEntity */,
+				9A6CD6D82419510D009FC5F1 /* QuizEntities */,
 				9A716FB124168C8B0070E214 /* QuizRouter.swift */,
 				9A9E2A4A24143FC80000340A /* QuizTableViewCell.swift */,
 			);
@@ -273,8 +288,10 @@
 			isa = PBXGroup;
 			children = (
 				9A9E2A3E241424B00000340A /* Colors.swift */,
+				9A07DBE4241CFE2E004E4C25 /* UIViewController.swift */,
 				9A9E2A412414261D0000340A /* UIImage.swift */,
 				9A716FA424165A670070E214 /* Enum.swift */,
+				9A07DBDC241CC149004E4C25 /* Alert.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -440,13 +457,16 @@
 				9A716FAE241672070070E214 /* QuizViewControllerP.swift in Sources */,
 				9A6CD6D5241929B4009FC5F1 /* QuestionEnum.swift in Sources */,
 				9A9E2A4B24143FC80000340A /* QuizTableViewCell.swift in Sources */,
+				9A07DBE3241CFB6F004E4C25 /* StartViewController.swift in Sources */,
 				9A9E2A4E241448A90000340A /* SchemeOptionViewModel.swift in Sources */,
+				9A07DBDD241CC149004E4C25 /* Alert.swift in Sources */,
 				9A9E2A0D2414008C0000340A /* QuizViewController.swift in Sources */,
 				9A716FB224168C8B0070E214 /* QuizRouter.swift in Sources */,
 				9A4C0942241A023600756BDB /* GearboxModel.swift in Sources */,
 				9ABB8A77241A06330010D9DD /* BeltTransmissionModel.swift in Sources */,
 				9A9E2A422414261D0000340A /* UIImage.swift in Sources */,
 				9A716FAA241671860070E214 /* OptionViewModelProtocol.swift in Sources */,
+				9A07DBE5241CFE2E004E4C25 /* UIViewController.swift in Sources */,
 				9A07DBDA241A1023004E4C25 /* QuizInteractor.swift in Sources */,
 				9A9E2A3F241424B00000340A /* Colors.swift in Sources */,
 				9A4C0945241A028F00756BDB /* GearboxComponents.swift in Sources */,

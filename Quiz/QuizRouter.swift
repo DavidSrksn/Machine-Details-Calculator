@@ -16,7 +16,7 @@ class QuizRouter: QuizRouterProtocol {
         self.viewController = viewController as! QuizViewController
     }
     
-    var navigationStack: [QuizQuestionModel] = [QuizQuestionModel(type: .scheme)]
+    var navigationStack: [QuizQuestionModel] = [QuizQuestionModel(type: .scheme, previousResult: ResultModel())]
     
     func presentNextQuestion(question: QuizQuestionModel){
         let indexOfModel: Int? = navigationStack.firstIndex { (savedQuestion) -> Bool in
@@ -40,13 +40,24 @@ class QuizRouter: QuizRouterProtocol {
         }
     }
     
-    public func penultimateResultModel() -> ResultModel? {
-        let penultimateQuestionModelIndex: Int = navigationStack.count - 2
-        if penultimateQuestionModelIndex >= 0{
-            let penultimateQuestionModel = navigationStack[penultimateQuestionModelIndex].result
-            return penultimateQuestionModel
-        }
-        return nil
-    }
+    //    public func penultimateResultModel() -> ResultModel? {
+    //        let penultimateQuestionModelIndex: Int = navigationStack.count - 2
+    //        if penultimateQuestionModelIndex >= 0{
+    //            let penultimateQuestionModel = navigationStack[penultimateQuestionModelIndex].previousResult
+    //            return penultimateQuestionModel
+    //        }
+    //        return nil
+    //    }
     
+    public func deleteNavigation(after question: QuizQuestionModel){
+        let indexToDeleteAfter: Int? = navigationStack.firstIndex { (questionModel) -> Bool in
+            questionModel.text == question.text
+        }
+        
+        if let indexToDeleteAfter = indexToDeleteAfter, indexToDeleteAfter + 1 <= navigationStack.count - 1 {
+            for i in indexToDeleteAfter + 1 ... navigationStack.count - 1{
+                navigationStack.remove(at: i)
+            }
+        }
+    }
 }
