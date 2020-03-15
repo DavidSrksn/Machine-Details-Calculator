@@ -16,6 +16,10 @@ extension String{
             return "Выберите тип расположения источника и потребителя"
         case .transmission:
             return "Выберите угол передачи движения в редукторе"
+        case .smoothness:
+            return "Требуется ли плавность хода?"
+        case .cost:
+            return "Стоимость должна быть небольшой?"
         }
     }
     

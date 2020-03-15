@@ -9,7 +9,7 @@
 
 struct ChainTransmission {
     
-    let gearRatio: Float
+    let gearRatio: Double
     
     init() {
         self.gearRatio = 2.0

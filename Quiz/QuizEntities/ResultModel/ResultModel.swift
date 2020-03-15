@@ -14,24 +14,26 @@ struct ResultModel {
     
     var beltTransmission: BeltTransmission? = nil
     
-    func gearRation() -> Float?{
-        if gearbox.stageNumber.count == 1 && gearbox.type.count == 1{
-            if let gearboxType = gearbox.type.last, let geatboxStageNumber = gearbox.stageNumber.last{
-                let gearboxGearRatio: Float = gearbox.gearRatio(type: gearboxType, stageNumber: geatboxStageNumber)
-                let chainTransmissionGearRatio: Float = chainTransmission?.gearRatio ?? 1
-                let beltTransmissionGearRatio: Float = beltTransmission?.gearRatio ?? 1
+    var consumerGenerator: Generator
+    
+    func gearRatio() -> Double?{
+        if gearbox.stageNumber.count == 1 && gearbox.type.count == 1, let _ = gearbox.gearRatio{
+            if gearbox.type.count == 1, let geatboxStageNumber = gearbox.stageNumber.last{
+                let gearboxGearRatio: Double = gearbox.calculateGearRatio( stageNumber: geatboxStageNumber)
+                let chainTransmissionGearRatio: Double = chainTransmission?.gearRatio ?? 1
+                let beltTransmissionGearRatio: Double = beltTransmission?.gearRatio ?? 1
                 return gearboxGearRatio * chainTransmissionGearRatio * beltTransmissionGearRatio
             }
         }
         return nil
     }
     
-    internal func printResults(){
+    func printResults(){
         printScheme()
         printType()
     }
     
-    private func printScheme(){
+    func printScheme(){
         var chainTransmissionText: String = ""
         var beltTransmissionText: String = ""
         if chainTransmission != nil{
@@ -43,7 +45,7 @@ struct ResultModel {
         print("scheme = gearbox + \(chainTransmissionText) + \(beltTransmissionText)")
     }
     
-    private func printType(){
+    func printType(){
         print("types :   \(gearbox.type)")
     }
     

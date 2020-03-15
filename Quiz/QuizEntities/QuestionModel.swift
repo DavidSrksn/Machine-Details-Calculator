@@ -13,10 +13,10 @@ class QuizQuestionModel: QuizQuestionModelProtocol {
     var text: String
     
     var options: [OptionViewModelProtocol]
-    
-    var nextQuestionType: QuizQestion?
-    
+        
     var previousResult: ResultModel!
+    
+    let type: QuizQestion
     
     init(type: QuizQestion, previousResult: ResultModel) {
         
@@ -31,7 +31,7 @@ class QuizQuestionModel: QuizQuestionModelProtocol {
             }
         }
         
-        self.nextQuestionType = nextQuestionOptionType(type: type)
+        self.type = type
         
         self.previousResult = previousResult
     }
@@ -51,17 +51,25 @@ class QuizQuestionModel: QuizQuestionModelProtocol {
         selectedOption.isSelected = true
     }
     
-    private func nextQuestionOptionType(type: QuizQestion) -> QuizQestion?{
+    public func nextQuestionOptionType(currentResult: ResultModel) -> QuizQestion?{
         switch type{
         case .scheme:
             return .transmission
         case .transmission:
+            return .smoothness
+        case .smoothness:
+            if currentResult.gearbox.type.count != 1{
+            return .cost
+            }else{
+                return nil
+            }
+        case .cost:
             return nil
         }
     }
     
     public func nextQuestion(previousResult: ResultModel) -> QuizQuestionModel? {
-        if let questionType = nextQuestionType{
+        if let questionType = self.nextQuestionOptionType(currentResult: previousResult){
                 return QuizQuestionModel(type: questionType, previousResult: previousResult )
         }
         return nil

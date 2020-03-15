@@ -8,7 +8,7 @@
 
 struct BeltTransmission{
     
-    let gearRatio: Float
+    let gearRatio: Double
        
        init() {
            self.gearRatio = 3.0

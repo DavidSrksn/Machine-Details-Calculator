@@ -9,6 +9,8 @@
 enum QuizQestion{
     case scheme
     case transmission
+    case smoothness
+    case cost
 }
 
 extension QuizQestion: RawRepresentable{
@@ -17,9 +19,14 @@ extension QuizQestion: RawRepresentable{
     public init?(rawValue: RawValue) {
         if let _ = rawValue as? SchemeOptionViewModel {
             self = .scheme
-        }else if let _ = rawValue as? SchemeOptionViewModel {
-            self = .scheme
-        }else{
+        }else if let _ = rawValue as? TransmissionOptionViewModel {
+            self = .transmission
+        }else if let _ = rawValue as? SmooothnessOptionViewModel {
+            self = .smoothness
+        }else if let _ = rawValue as? CostOptionViewModel {
+            self = .cost
+        }
+        else{
             return nil
         }
     }
@@ -28,6 +35,8 @@ extension QuizQestion: RawRepresentable{
         switch self {
         case .scheme: return SchemeOptionViewModel()
         case .transmission: return TransmissionOptionViewModel()
+        case .smoothness: return SmooothnessOptionViewModel()
+        case .cost: return CostOptionViewModel()
         }
     }
 }

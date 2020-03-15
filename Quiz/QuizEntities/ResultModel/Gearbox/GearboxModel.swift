@@ -13,9 +13,14 @@ struct Gearbox{
     
     var stageNumber: [GearboxStage]
     
-    func gearRatio(type: GearboxType,stageNumber: GearboxStage) -> Float {
-        let gearboxGearRation: Float = type.rawValue * stageNumber.rawValue
-        return gearboxGearRation
+    var gearRatio: Double?
+    
+    func calculateGearRatio(stageNumber: GearboxStage) -> Double {
+        if let gearRatio = self.gearRatio{
+            let gearboxGearRation: Double = gearRatio * stageNumber.rawValue
+            return gearboxGearRation
+        }
+        return 1
     }
     
     init() {

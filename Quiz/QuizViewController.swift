@@ -10,11 +10,20 @@ import UIKit
 
 class QuizViewController: UIViewController, QuizViewControllerProtocol {
 
+    init(generator: Generator) {
+        self.result = ResultModel(consumerGenerator: generator)
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     var interactor: Interactor!
     var presenter: QuizPresenter!
     var router: QuizRouter!
     var questionModel: QuizQuestionModel!
-    var result = ResultModel()
+    var result: ResultModel
     
     let buttonsStackView = UIStackView()
     let nextButton = UIButton()
@@ -27,6 +36,8 @@ class QuizViewController: UIViewController, QuizViewControllerProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViper()
+        router.navigationStack.append(QuizQuestionModel(type: .scheme, previousResult: result))
+        self.questionModel = router.navigationStack[0]
         view.backgroundColor = .white
         optionsTableView.delegate = self
         optionsTableView.dataSource = self
@@ -48,9 +59,6 @@ class QuizViewController: UIViewController, QuizViewControllerProtocol {
         
         let router = QuizRouter(viewController: self)
         self.router = router
-        
-        let model = self.router.navigationStack[0]
-        self.questionModel = model
         
         self.interactor = Interactor()
     }
@@ -75,6 +83,13 @@ class QuizViewController: UIViewController, QuizViewControllerProtocol {
         if let questionModel = questionModel as? QuizQuestionModel{
             router.presentNextQuestion(question: questionModel)
             presenter.changeQuestion()
+        }else{
+            self.presentAlert(type: .finish, titleAndCompletion: [
+                ("Отменить", nil),
+                ("Ок", {(action)-> Void in
+                    self.presentFullscreen(viewController: QuizFinalViewController(result: self.result))
+                })
+            ])
         }
     }
     
