@@ -19,7 +19,7 @@ extension String{
         case .smoothness:
             return "Требуется ли плавность хода?"
         case .cost:
-            return "Стоимость должна быть небольшой?"
+            return "Что предпочтительнее?"
         }
     }
     

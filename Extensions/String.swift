@@ -12,12 +12,12 @@ extension String{
         
         self.forEach({ (character) in
             let symbol = "\(character)"
-            if permittedSymbols.contains(symbol){
+            if !permittedSymbols.contains(symbol){
                 flag = 1
             }
         })
         
-        if flag == 0 || self == ""{
+        if flag == 1 || self == ""{
             return false
         }else{
             return true

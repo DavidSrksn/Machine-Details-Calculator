@@ -17,7 +17,7 @@ extension UIViewController{
     }
 }
 
-extension UITextField{
+extension UIView{
     
     public func warning(){
         let originalColor = self.backgroundColor

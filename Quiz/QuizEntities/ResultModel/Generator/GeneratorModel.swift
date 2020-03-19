@@ -8,8 +8,8 @@
 
 struct Generator{
     
-    var frequency: Int?
+    var frequency: Double?
     
-    var power: Float?
+    var power: Double?
     
 }

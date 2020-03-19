@@ -18,6 +18,7 @@ extension UIViewController{
 
 internal enum AlertType{
     case finish
+    case error
 }
 
 
@@ -45,6 +46,8 @@ class ALertComponentsConfigurator{
             switch type{
             case .finish:
                 return "Предупреждение"
+            case .error:
+                return "Ошибка"
             }
         }
         
@@ -52,13 +55,9 @@ class ALertComponentsConfigurator{
             switch type{
             case .finish:
                 return "Вы уверены, что хотите завершить?"
+            case .error:
+                return "Программа не находит подходящих Вашему случаю решений"
             }
         }
-        
-        fileprivate func setupActionTitle(type: AlertType) -> [String]{
-            switch type{
-            case .finish:
-                return ["", ""]
-            }
-        }
+    
 }

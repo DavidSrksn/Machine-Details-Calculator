@@ -15,17 +15,12 @@ struct ResultModel {
     var beltTransmission: BeltTransmission? = nil
     
     var consumerGenerator: Generator
+    var sourceGenerator = Generator()
     
-    func gearRatio() -> Double?{
-        if gearbox.stageNumber.count == 1 && gearbox.type.count == 1, let _ = gearbox.gearRatio{
-            if gearbox.type.count == 1, let geatboxStageNumber = gearbox.stageNumber.last{
-                let gearboxGearRatio: Double = gearbox.calculateGearRatio( stageNumber: geatboxStageNumber)
-                let chainTransmissionGearRatio: Double = chainTransmission?.gearRatio ?? 1
-                let beltTransmissionGearRatio: Double = beltTransmission?.gearRatio ?? 1
-                return gearboxGearRatio * chainTransmissionGearRatio * beltTransmissionGearRatio
-            }
-        }
-        return nil
+    func gearRatio(gearboxRatio: Double) -> Double{
+        let chainTransmissionGearRatio: Double = chainTransmission?.gearRatio ?? 1
+        let beltTransmissionGearRatio: Double = beltTransmission?.gearRatio ?? 1
+        return gearboxRatio * chainTransmissionGearRatio * beltTransmissionGearRatio
     }
     
     func printResults(){

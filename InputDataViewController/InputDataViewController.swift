@@ -110,7 +110,7 @@ final class InputDataViewController: UIViewController, UITextFieldDelegate, Inpu
         continueButton.setTitle("Продолжить", for: .normal)
         continueButton.setTitleColor(.white, for: .normal)
         
-        continueButton.alpha = 0.25
+        continueButton.alpha = 0.50
         
         continueButton.layer.cornerRadius = powerTextField.layer.cornerRadius
         continueButton.backgroundColor = .black
@@ -137,8 +137,8 @@ final class InputDataViewController: UIViewController, UITextFieldDelegate, Inpu
     }
     
     func setupGenerator(){
-        let frequency: Int? = Int(frequencyTextField.text!)
-        let power: Float? = Float(powerTextField.text!)
+        let frequency: Double? = Double(frequencyTextField.text!)
+        let power: Double? = Double(powerTextField.text!)
         
         self.generatorModel = Generator(frequency: frequency, power: power)
     }

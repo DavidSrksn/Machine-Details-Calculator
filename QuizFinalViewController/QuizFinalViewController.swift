@@ -18,10 +18,7 @@ class QuizFinalViewController: UIViewController{
     let scrollView = UIScrollView()
     
     let savePDFButton = UIButton()
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return UIStatusBarStyle.lightContent
-    }
+    let finishButton = UIButton()
     
     init(result: ResultModel) {
         self.result = result
@@ -33,21 +30,77 @@ class QuizFinalViewController: UIViewController{
     }
     
     override func viewDidLoad() {
-        calculateResult()
+        if let resultSourceFrequency = calculateSourceFrequency(){
+            result.sourceGenerator.frequency = resultSourceFrequency
+            
+            let schemeGearRatio: Double = (result.consumerGenerator.frequency ?? 0 ) / resultSourceFrequency
+            result.gearbox.gearRatio = calculateGearboxGearRatio(schemeGearRatio: schemeGearRatio)
+            
+        }else{
+            self.presentAlert(type: .error, titleAndCompletion: [
+            ("Ok", nil)
+            ])
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         view.backgroundColor = UIColor.Customs.lightBlack
         setupResultHeaderLabel()
-        setupSavePDFButton()
         setupScrollView()
+        setupFinishButton()
+        setupSavePDFButton()
         setupResultStackView()
     }
     
-    func calculateResult(){
-        if let gearboxType = result.gearbox.type.first{
+    func calculateSourceFrequency() -> Double?{
+        if let gearboxType = result.gearbox.type.first,
+            let consumerFrequency = result.consumerGenerator.frequency{
+            
             let (oneStageRange, twoStageRange) = gearboxType.rawValue
+            
+            if let oneStageFrequency = calculateStageMaxAllowedFrequency(consumerFrequency: consumerFrequency, stageRange: oneStageRange){
+                self.result.gearbox.stageNumber.removeLast()
+                return oneStageFrequency
+            }else if let twoStageRange = twoStageRange, let twoStageFrequency = calculateStageMaxAllowedFrequency(consumerFrequency: consumerFrequency, stageRange: twoStageRange){
+                self.result.gearbox.stageNumber.removeFirst()
+                return twoStageFrequency
+            }
         }
+        
+        return nil
+    }
+    
+    func calculateStageMaxAllowedFrequency(consumerFrequency: Double, stageRange: (Double,Double)) -> Double?{
+        let minSourceFrequency: Double = result.gearRatio(gearboxRatio: consumerFrequency / stageRange.1)
+        let maxSourceFrequency: Double = result.gearRatio(gearboxRatio: consumerFrequency / stageRange.0)
+        
+        let allSourceFrequencyOptions: [Double] = allFrequencyOptions()
+        
+        if !(minSourceFrequency > allSourceFrequencyOptions.last! || maxSourceFrequency < allSourceFrequencyOptions.first!){ // условие пересечения
+            if maxSourceFrequency < allSourceFrequencyOptions.last! {
+                return maxSourceFrequency
+            }else{
+                return allSourceFrequencyOptions.last
+            }
+        }
+        
+        return nil
+    }
+    
+    func calculateGearboxGearRatio(schemeGearRatio: Double) -> Double{
+        let chainTransmissionGearRatio: Double = result.chainTransmission?.gearRatio ?? 1
+        let beltTransmissionGearRatio: Double = result.beltTransmission?.gearRatio ?? 1
+        
+        return schemeGearRatio / chainTransmissionGearRatio / beltTransmissionGearRatio
+    }
+    
+    func allFrequencyOptions() -> [Double] {
+        var sourceFrequencyOptions: [Double] = []
+        
+        for option in GeneratorFrequency.allCases{
+                sourceFrequencyOptions.append(option.rawValue)
+        }
+        return sourceFrequencyOptions
     }
     
     func setupResultHeaderLabel(){
@@ -67,13 +120,25 @@ class QuizFinalViewController: UIViewController{
         resultHeaderLabel.textAlignment = .center
     }
     
+    @objc func savePDFButtonAction(){
+        let pdfCreator = PDFConfigurator(result: result)
+        let data = pdfCreator.createResultPDF()
+        
+//        let navigationController = UINavigationController()
+        let viewController = PDFViewController(documentData: data)
+        self.navigationController?.pushViewController(viewController, animated: true)
+        
+    }
+    
     func setupSavePDFButton(){
         view.addSubview(savePDFButton)
+        
+        savePDFButton.addTarget(nil, action: #selector(savePDFButtonAction), for: .touchUpInside)
         
         savePDFButton.translatesAutoresizingMaskIntoConstraints = false
         
         savePDFButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        savePDFButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        savePDFButton.bottomAnchor.constraint(equalTo: finishButton.topAnchor, constant: -7).isActive = true
         savePDFButton.widthAnchor.constraint(equalToConstant: view.frame.width * 0.65).isActive = true
         savePDFButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
@@ -82,6 +147,30 @@ class QuizFinalViewController: UIViewController{
         
         savePDFButton.setTitle("Сохранить в PDF", for: .normal)
         savePDFButton.setTitleColor(UIColor.Customs.lightBlack, for: .normal)
+    }
+    
+    @objc func finishButtonAction(){
+        let navigationController = NavigationController(rootViewController: StartViewController())
+        self.presentFullscreen(viewController: navigationController)
+    }
+    
+    func setupFinishButton(){
+        view.addSubview(finishButton)
+        
+        finishButton.addTarget(nil, action: #selector(finishButtonAction), for: .touchUpInside)
+        
+        finishButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        finishButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        finishButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        finishButton.widthAnchor.constraint(equalToConstant: view.frame.width * 0.55).isActive = true
+        finishButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        finishButton.backgroundColor = UIColor.Customs.red
+        finishButton.layer.cornerRadius = 20
+        
+        finishButton.setTitle("Завершить", for: .normal)
+        finishButton.setTitleColor(UIColor.Customs.lightBlack, for: .normal)
     }
     
     func setupScrollView(){
@@ -94,14 +183,13 @@ class QuizFinalViewController: UIViewController{
         scrollView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         
-        scrollView.contentSize.height = 1
         scrollView.backgroundColor = .clear
     }
     
     func setupResultStackView(){
         resultStackView.axis = .vertical
         resultStackView.distribution = .fillEqually
-        resultStackView.spacing = 60
+        resultStackView.spacing = 50
         
         resultStackView.tintColor = .black
         
@@ -112,7 +200,7 @@ class QuizFinalViewController: UIViewController{
         resultStackView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
         resultStackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: 0.9).isActive = true
         resultStackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
-        resultStackView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 20).isActive = true
+        resultStackView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
         
         for type in ResultType.allCases{
             resultStackView.addArrangedSubview(componentStackView(headerLabel: UILabel.resultHeader(type: type), description: UILabel.resultLabel(type: type, result: result)))
@@ -125,7 +213,7 @@ class QuizFinalViewController: UIViewController{
         
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
-        stackView.spacing = 30
+        stackView.spacing = 20
         
         stackView.tintColor = .black
         
@@ -135,15 +223,4 @@ class QuizFinalViewController: UIViewController{
         return stackView
     }
     
-//    func printResult() -> String{
-//        if let gearType = result.gearbox.type.first, let gearStage = result.gearbox.stageNumber.first{
-//            let scheme: String =  String.resultScheme(result: result) + "\n"
-//            let gearboxType: String = String.resultType(gearboxType: gearType) + "\n"
-//            let gearboxStage: String = String(describing: gearStage) + "\n"
-//
-//            return scheme + gearboxType + gearboxStage
-//        }else{
-//            return "Ошибка, попробуйте заново"
-//        }
-//    }
 }

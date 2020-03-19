@@ -13,6 +13,9 @@ extension String{
         case .gearStage: return "Количество ступеней редуктора"
         case .gearType: return "Тип редуктора"
         case .scheme: return "Схема"
+        case .sourceFrequency: return "Частота э/д"
+        case .emty: return ""
+        case .schemeGearRatio: return  "Передаточное отношение схемы"
         }
     }
     
@@ -24,7 +27,30 @@ extension String{
             return resultGearType(result: result)
         case .scheme:
             return resultScheme(result: result)
+        case .sourceFrequency:
+            return resultFrequency(result: result)
+        case .emty:
+            return ""
+        case .schemeGearRatio:
+            return resultShemeGearRatio(result: result)
         }
+    }
+    
+    static func resultShemeGearRatio(result: ResultModel) -> String{
+        let schemeGearRatio = Int(result.gearRatio(gearboxRatio: result.gearbox.gearRatio ?? 0))
+        
+        var chainTransmissionText: String = ""
+        var beltTransmissionText: String = ""
+        
+        if result.chainTransmission != nil{
+            chainTransmissionText = "Uцеп"
+            return "Uред x \(chainTransmissionText) = \(schemeGearRatio)"
+        }
+        if result.beltTransmission != nil{
+            beltTransmissionText = "Uрем"
+            return "Uред x \(beltTransmissionText) = \(schemeGearRatio)"
+        }
+        return "Uред = \(schemeGearRatio)"
     }
     
     static func resultGearStage(result: ResultModel) -> String{
@@ -67,8 +93,16 @@ extension String{
             chainTransmissionText = "+ цепная передача"
         }
         if result.beltTransmission != nil{
-            beltTransmissionText = "+ ремённая пережача"
+            beltTransmissionText = "+ ремённая передача"
         }
         return  ("редуктор  \(chainTransmissionText)  \(beltTransmissionText)")
     }
+    
+    static func resultFrequency(result: ResultModel) -> String{
+        if let resultFrequency = result.sourceGenerator.frequency{
+            return "\(resultFrequency)"
+        }
+        return "Ошибка"
+    }
+    
 }

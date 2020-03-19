@@ -76,20 +76,27 @@ class QuizViewController: UIViewController, QuizViewControllerProtocol {
     }
     
     @objc func changeToNextQuestion(){
-        interactor.changeResult(of: &questionModel, currentResult: &result)
-
-        let questionModel: QuizQuestionModelProtocol? = self.questionModel.nextQuestion(previousResult: result)
-        
-        if let questionModel = questionModel as? QuizQuestionModel{
-            router.presentNextQuestion(question: questionModel)
-            presenter.changeQuestion()
+        if let _ = selectedCell(){
+            interactor.changeResult(of: &questionModel, currentResult: &result)
+            
+            let questionModel: QuizQuestionModelProtocol? = self.questionModel.nextQuestion(previousResult: result)
+            
+            if let questionModel = questionModel as? QuizQuestionModel{
+                router.presentNextQuestion(question: questionModel)
+                presenter.changeQuestion()
+            }else{
+                self.presentAlert(type: .finish, titleAndCompletion: [
+                    ("Отменить", nil),
+                    ("Ок", {(action)-> Void in
+                        let navigationController = NavigationController(rootViewController: QuizFinalViewController(result: self.result))
+                        self.presentFullscreen(viewController: navigationController)
+                    })
+                ])
+            }
         }else{
-            self.presentAlert(type: .finish, titleAndCompletion: [
-                ("Отменить", nil),
-                ("Ок", {(action)-> Void in
-                    self.presentFullscreen(viewController: QuizFinalViewController(result: self.result))
-                })
-            ])
+            optionsTableView.visibleCells.forEach { (cell) in
+                cell.warning()
+            }
         }
     }
     

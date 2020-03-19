@@ -44,7 +44,9 @@ class StartViewController: UIViewController{
     }
     
     @objc func openExistingButtonAction(){
-        
+        let viewController = SavedFilesViewController()
+        viewController.modalPresentationStyle = .fullScreen
+        self.navigationController?.pushViewController(viewController, animated: true)
     }
     
     func setupOpenExistingButton(){

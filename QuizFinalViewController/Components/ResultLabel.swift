@@ -12,24 +12,28 @@ internal enum ResultType{
     case scheme
     case gearType
     case gearStage
+    case schemeGearRatio
+    case sourceFrequency
+    case emty // для пространства для кнопок
     
-    static let allCases: [ResultType] = [.scheme, .gearType, .gearStage]
+    static let allCases: [ResultType] = [.scheme, .gearType, .gearStage, .sourceFrequency,.schemeGearRatio, .emty]
 }
 
 extension UILabel{
     static func resultLabel(type: ResultType, result: ResultModel) -> UILabel{
         let label = UILabel()
-        
+        let text = String.printResult(type: type, result: result)
         label.numberOfLines = 0
-        label.text = String.printResult(type: type, result: result)
+        label.text = text
         label.textAlignment = .center
         label.textColor = .white
         label.font = UIFont(name: "HelveticaNeue", size: 25)
         label.layer.cornerRadius = 20
         
-        label.layer.borderWidth = 1.6
-        label.layer.borderColor = UIColor.white.cgColor
-        
+        if text != ""{
+            label.layer.borderWidth = 1.6
+            label.layer.borderColor = UIColor.white.cgColor
+        }
         return label
     }
     

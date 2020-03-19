@@ -15,9 +15,9 @@ extension UILabel{
         var text: String?{
             switch option{
             case .A:
-                return "да"
+                return "низкая цена"
             case .B:
-                return "неважно"
+                return "высокая точность"
             case .C, .D:
                 return nil
             }

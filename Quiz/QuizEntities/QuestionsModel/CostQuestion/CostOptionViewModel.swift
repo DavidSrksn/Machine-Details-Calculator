@@ -39,11 +39,14 @@ class CostOptionViewModel: OptionViewModelProtocol{
     }
     
     public func setup(option: QuizOption){
-        setupSchemeLabel(option: option)
+        setupCostLabel(option: option)
     }
     
-    private func setupSchemeLabel(option: QuizOption){
+    private func setupCostLabel(option: QuizOption){
         let label: UILabel? = UILabel.cost(option: option)
+        
+        label?.numberOfLines = 0
+        label?.textAlignment = .center
         
         if let label = label{
             view.addSubview(label)
