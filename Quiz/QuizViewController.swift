@@ -86,7 +86,9 @@ class QuizViewController: UIViewController, QuizViewControllerProtocol {
                 presenter.changeQuestion()
             }else{
                 self.presentAlert(type: .finish, titleAndCompletion: [
-                    ("Отменить", nil),
+                    ("Отменить", {(action)-> Void in
+                        self.result = self.questionModel.previousResult
+                    }),
                     ("Ок", {(action)-> Void in
                         let navigationController = NavigationController(rootViewController: QuizFinalViewController(result: self.result))
                         self.presentFullscreen(viewController: navigationController)
@@ -110,16 +112,18 @@ class QuizViewController: UIViewController, QuizViewControllerProtocol {
         self.presentAlert(type: .finish, titleAndCompletion: [
             ("Отменить", nil),
             ("Ок", {(action)-> Void in
-                self.presentFullscreen(viewController: StartViewController())
+                let navigationController = NavigationController(rootViewController: StartViewController())
+                self.presentFullscreen(viewController: navigationController)
             })
         ])
     }
     
     func configureFinishButton() -> UIButton{
-        finishButton.backgroundColor = UIColor.Customs.red
+        finishButton.backgroundColor = UIColor.Customs.lightBlack
         
-        finishButton.setTitle("Finish", for: .normal)
-        finishButton.setTitleColor(.black, for: .normal)
+        finishButton.setTitle("Завершить", for: .normal)
+        finishButton.setTitleColor(.white, for: .normal)
+        finishButton.layer.cornerRadius = 10
         
         finishButton.addTarget(nil, action: #selector(finishButtonAction), for: .touchUpInside)
         

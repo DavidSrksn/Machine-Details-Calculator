@@ -30,12 +30,12 @@ class QuizFinalViewController: UIViewController{
     }
     
     override func viewDidLoad() {
-        if let resultSourceFrequency = calculateSourceFrequency(){
-            result.sourceGenerator.frequency = resultSourceFrequency
+        if let resultSourceGenerator = calculateSourceGenerator(){
+            result.sourceGenerator.frequency = resultSourceGenerator.0
+            result.sourceGenerator.name = resultSourceGenerator.1
             
-            let schemeGearRatio: Double = (result.consumerGenerator.frequency ?? 0 ) / resultSourceFrequency
+            let schemeGearRatio: Double = (result.consumerGenerator.frequency ?? 0 ) / resultSourceGenerator.0
             result.gearbox.gearRatio = calculateGearboxGearRatio(schemeGearRatio: schemeGearRatio)
-            
         }else{
             self.presentAlert(type: .error, titleAndCompletion: [
             ("Ok", nil)
@@ -45,46 +45,58 @@ class QuizFinalViewController: UIViewController{
     
     override func viewWillAppear(_ animated: Bool) {
         view.backgroundColor = UIColor.Customs.lightBlack
-        setupResultHeaderLabel()
         setupScrollView()
+        setupResultHeaderLabel()
         setupFinishButton()
         setupSavePDFButton()
         setupResultStackView()
     }
     
-    func calculateSourceFrequency() -> Double?{
+    func calculateSourceGenerator() -> (Double, String)?{
         if let gearboxType = result.gearbox.type.first,
             let consumerFrequency = result.consumerGenerator.frequency{
             
             let (oneStageRange, twoStageRange) = gearboxType.rawValue
             
-            if let oneStageFrequency = calculateStageMaxAllowedFrequency(consumerFrequency: consumerFrequency, stageRange: oneStageRange){
+            if let oneStageParameters = calculateStageMaxAllowedFrequency(consumerFrequency: consumerFrequency, stageRange: oneStageRange){
                 self.result.gearbox.stageNumber.removeLast()
-                return oneStageFrequency
-            }else if let twoStageRange = twoStageRange, let twoStageFrequency = calculateStageMaxAllowedFrequency(consumerFrequency: consumerFrequency, stageRange: twoStageRange){
+                return oneStageParameters
+            }else if let twoStageRange = twoStageRange, let twoStageParameters = calculateStageMaxAllowedFrequency(consumerFrequency: consumerFrequency, stageRange: twoStageRange){
                 self.result.gearbox.stageNumber.removeFirst()
-                return twoStageFrequency
+                return twoStageParameters
             }
         }
-        
         return nil
     }
     
-    func calculateStageMaxAllowedFrequency(consumerFrequency: Double, stageRange: (Double,Double)) -> Double?{
-        let minSourceFrequency: Double = result.gearRatio(gearboxRatio: consumerFrequency / stageRange.1)
-        let maxSourceFrequency: Double = result.gearRatio(gearboxRatio: consumerFrequency / stageRange.0)
+    func calculateStageMaxAllowedFrequency(consumerFrequency: Double, stageRange: (Double,Double)) -> (Double,String)?{
+        let minSourceFrequency: Double = consumerFrequency / result.gearRatio(gearboxRatio: stageRange.1)
+        let maxSourceFrequency: Double = consumerFrequency / result.gearRatio(gearboxRatio: stageRange.0)
         
-        let allSourceFrequencyOptions: [Double] = allFrequencyOptions()
+        let allSourceOptions: [(Double, String)] = GeneratorFrequency.allGeneratorOptions()
         
-        if !(minSourceFrequency > allSourceFrequencyOptions.last! || maxSourceFrequency < allSourceFrequencyOptions.first!){ // условие пересечения
-            if maxSourceFrequency < allSourceFrequencyOptions.last! {
-                return maxSourceFrequency
+        if !(minSourceFrequency > allSourceOptions.last!.0 || maxSourceFrequency < allSourceOptions.first!.0){ // условие пересечения
+            if maxSourceFrequency < allSourceOptions.last!.0 {
+                return searchNearestRight(to: maxSourceFrequency, in: allSourceOptions)
             }else{
-                return allSourceFrequencyOptions.last
+                return allSourceOptions.last
+            }
+        }
+        return nil
+    }
+    
+    func searchNearestRight(to element: Double, in sequence: [(Double,String)]) -> (Double,String){
+        var temp = sequence.max { (first, second) -> Bool in
+            first.0 >= second.0
+        }
+        
+        for unit in sequence{
+            if unit.0 < temp!.0 && unit.0 >= element{
+                temp = unit
             }
         }
         
-        return nil
+        return temp!
     }
     
     func calculateGearboxGearRatio(schemeGearRatio: Double) -> Double{
@@ -92,15 +104,6 @@ class QuizFinalViewController: UIViewController{
         let beltTransmissionGearRatio: Double = result.beltTransmission?.gearRatio ?? 1
         
         return schemeGearRatio / chainTransmissionGearRatio / beltTransmissionGearRatio
-    }
-    
-    func allFrequencyOptions() -> [Double] {
-        var sourceFrequencyOptions: [Double] = []
-        
-        for option in GeneratorFrequency.allCases{
-                sourceFrequencyOptions.append(option.rawValue)
-        }
-        return sourceFrequencyOptions
     }
     
     func setupResultHeaderLabel(){
@@ -114,7 +117,7 @@ class QuizFinalViewController: UIViewController{
         resultHeaderLabel.heightAnchor.constraint(equalToConstant: 70).isActive = true
         
         resultHeaderLabel.textColor = .white
-        resultHeaderLabel.font = UIFont(name: "HelveticaNeue", size: 35)
+        resultHeaderLabel.font = UIFont(name: "HelveticaNeue", size: 40)
         resultHeaderLabel.numberOfLines = 0
         resultHeaderLabel.text = "Результаты"
         resultHeaderLabel.textAlignment = .center
@@ -178,7 +181,7 @@ class QuizFinalViewController: UIViewController{
         
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         
-        scrollView.topAnchor.constraint(equalTo: resultHeaderLabel.bottomAnchor, constant: 10).isActive = true
+        scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: 10).isActive = true
         scrollView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         scrollView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true

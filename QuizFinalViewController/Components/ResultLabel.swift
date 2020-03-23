@@ -13,10 +13,11 @@ internal enum ResultType{
     case gearType
     case gearStage
     case schemeGearRatio
+    case sourceName
     case sourceFrequency
     case emty // для пространства для кнопок
     
-    static let allCases: [ResultType] = [.scheme, .gearType, .gearStage, .sourceFrequency,.schemeGearRatio, .emty]
+    static let allCases: [ResultType] = [.scheme, .gearType, .gearStage, .sourceName,.sourceFrequency,.schemeGearRatio, .emty]
 }
 
 extension UILabel{

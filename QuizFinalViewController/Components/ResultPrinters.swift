@@ -16,6 +16,7 @@ extension String{
         case .sourceFrequency: return "Частота э/д"
         case .emty: return ""
         case .schemeGearRatio: return  "Передаточное отношение схемы"
+        case .sourceName: return "Тип э/д"
         }
     }
     
@@ -33,6 +34,8 @@ extension String{
             return ""
         case .schemeGearRatio:
             return resultShemeGearRatio(result: result)
+        case .sourceName:
+            return result.sourceGenerator.name ?? "Не найдено"
         }
     }
     

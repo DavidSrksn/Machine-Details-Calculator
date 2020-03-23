@@ -8,9 +8,9 @@
 
 import UIKit
 
-/* Варианты угла передачи движения в редукторе
-A - да
-B - неважно
+/* Варианты предпочтений
+A - цена
+B - точность
 */
 
 class CostOptionViewModel: OptionViewModelProtocol{
@@ -22,9 +22,9 @@ class CostOptionViewModel: OptionViewModelProtocol{
     public func result(resultModel: inout ResultModel, option: QuizOption) {
         switch option{
         case .A:
-            removeGearType(resultModel: &resultModel, gearTypes: [.wave, .worm, .planetary])
+            removeGearType(resultModel: &resultModel, gearTypes: [.wave, .worm])
         case .B:
-            removeGearType(resultModel: &resultModel, gearTypes: [])
+            removeGearType(resultModel: &resultModel, gearTypes: [.cylindrical, .conical])
         case .C, .D:
             return
         }

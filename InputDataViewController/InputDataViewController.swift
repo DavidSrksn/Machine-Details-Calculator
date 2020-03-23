@@ -9,7 +9,6 @@
 import UIKit
 
 enum InputDataTextField{ // для delegate
-    case power
     case frequency
 }
 
@@ -33,7 +32,6 @@ final class InputDataViewController: UIViewController, UITextFieldDelegate, Inpu
         
     let mainStackView = UIStackView()
     
-    let powerTextField = UITextField()
     let frequencyTextField = UITextField()
     
     let continueButton = UIButton()
@@ -44,7 +42,6 @@ final class InputDataViewController: UIViewController, UITextFieldDelegate, Inpu
         super.viewDidLoad()
         setupMVP()
         setupKeyboardLayout()
-        powerTextField.delegate = self
         frequencyTextField.delegate = self
     }
     
@@ -75,8 +72,6 @@ final class InputDataViewController: UIViewController, UITextFieldDelegate, Inpu
         switch textfieldType {
         case .frequency:
             frequencyTextField.warning()
-        case .power:
-            powerTextField.warning()
         }
     }
     
@@ -110,25 +105,18 @@ final class InputDataViewController: UIViewController, UITextFieldDelegate, Inpu
         continueButton.setTitle("Продолжить", for: .normal)
         continueButton.setTitleColor(.white, for: .normal)
         
-        continueButton.alpha = 0.50
+        continueButton.alpha = 0.25
         
-        continueButton.layer.cornerRadius = powerTextField.layer.cornerRadius
+        continueButton.layer.cornerRadius = frequencyTextField.layer.cornerRadius
         continueButton.backgroundColor = .black
     }
     
     @objc func loginButtonAction(){
-        let power = powerTextField.text!
         let frequency = frequencyTextField.text!
 
-        if power == "" && frequency == ""  {
+        if frequency.isEmpty{
             presenter.showAlertWarning(message: "Заполните поля")
-        }else if (!power.isAllowed() || power == "") && (!frequency.isAllowed() || frequency == ""){
-            presenter.showShimmerWarning(textfieldType: .power)
-            presenter.showShimmerWarning(textfieldType: .frequency)
-            presenter.showAlertWarning(message: "Заполните поля корректно")
-        }else if !power.isAllowed() || power == ""{
-            presenter.showShimmerWarning(textfieldType: .power)
-        }else if !frequency.isAllowed() || frequency == ""{
+        }else if !frequency.isAllowed() || frequency.isEmpty || !frequency.isCorrect() {
             presenter.showShimmerWarning(textfieldType: .frequency)
         }else{
             setupGenerator()
@@ -138,9 +126,7 @@ final class InputDataViewController: UIViewController, UITextFieldDelegate, Inpu
     
     func setupGenerator(){
         let frequency: Double? = Double(frequencyTextField.text!)
-        let power: Double? = Double(powerTextField.text!)
-        
-        self.generatorModel = Generator(frequency: frequency, power: power)
+        self.generatorModel = Generator(frequency: frequency)
     }
     
     func setupHeader(){
@@ -199,8 +185,7 @@ final class InputDataViewController: UIViewController, UITextFieldDelegate, Inpu
         mainStackView.heightAnchor.constraint(equalToConstant: 400).isActive = true
         mainStackView.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 20).isActive = true
         
-        mainStackView.addArrangedSubview(componentStackView(textField: powerTextField, headerLabelText: "Мощность потребителя, кВт"))
-        mainStackView.addArrangedSubview(componentStackView(textField: frequencyTextField, headerLabelText: "Частота потребителя, Гц"))
+        mainStackView.addArrangedSubview(componentStackView(textField: frequencyTextField, headerLabelText: "Частота потребителя, об/мин"))
     }
     
     func componentStackView(textField: UITextField, headerLabelText: String) -> UIStackView{
@@ -226,17 +211,17 @@ final class InputDataViewController: UIViewController, UITextFieldDelegate, Inpu
 extension InputDataViewController {
 
     private func keyForTextfield(textField: UITextField) -> InputDataTextField{
-        if textField === powerTextField{
-            return .power
-        }else if textField === frequencyTextField{
+        if textField === frequencyTextField{
             return .frequency
-        }else{return .power}
+        }else{
+            return .frequency
+        }
     }
 
     func textFieldDidBeginEditing(_ textField: UITextField){
         if textField.status == .empty{
             UIView.animate(withDuration: 1) {
-                self.continueButton.alpha += 0.25
+                self.continueButton.alpha += 0.75
             }
         }
     }
@@ -254,12 +239,10 @@ extension InputDataViewController {
             return
         case .incorrect, .empty:
             UIView.animate(withDuration: 1) {
-                if self.continueButton.alpha > 0.25{
-                    self.continueButton.alpha -= 0.25
+                    self.continueButton.alpha -= 0.75
                 }
             }
         }
-    }
 
 }
 

@@ -8,7 +8,7 @@
 
 import UIKit
 
-/* Варианты угла передачи движения в редукторе
+/* Варианты необходимости плавности движения
 A - да
 B - неважно
 */
@@ -22,7 +22,7 @@ class SmooothnessOptionViewModel: OptionViewModelProtocol{
     public func result(resultModel: inout ResultModel, option: QuizOption) {
         switch option{
         case .A:
-            removeGearType(resultModel: &resultModel, gearTypes: [.planetary, .conical, .cylindrical])
+            removeGearType(resultModel: &resultModel, gearTypes: [.conical,.cylindrical,.planetary])
         case .B:
             removeGearType(resultModel: &resultModel, gearTypes: [])
         case .C, .D:

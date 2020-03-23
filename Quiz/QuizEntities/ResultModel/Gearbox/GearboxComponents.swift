@@ -51,4 +51,37 @@ extension GearboxType: RawRepresentable{
         case .worm: return ((8,63),  (63, 1000))
         }
     }
+    
+    public func isSuitable(resultModel: inout ResultModel) -> Bool{
+        if calculateStageMaxAllowedFrequency(resultModel: &resultModel, stageRange: self.rawValue.0){
+            return true
+        }else if let twoStageRange = self.rawValue.1 {
+            return calculateStageMaxAllowedFrequency(resultModel: &resultModel, stageRange: twoStageRange)
+        }
+        
+        return false
+    }
+    
+    private func calculateStageMaxAllowedFrequency(resultModel: inout ResultModel, stageRange: (Double, Double)) -> Bool{
+        let consumerFrequency = resultModel.consumerGenerator.frequency!
+        
+        let minSourceFrequency: Double? = GeneratorFrequency.allGeneratorOptions().max { (a, b) -> Bool in
+            a.0 > b.0
+            }?.0
+        let maxSourceFrequency: Double? = GeneratorFrequency.allGeneratorOptions().max { (a, b) -> Bool in
+            a.0 < b.0
+            }?.0
+        let chainOrbelTransmissionGearRatio: Double = resultModel.chainTransmission?.gearRatio ?? resultModel.beltTransmission?.gearRatio ?? 1
+        
+        if let minSourceFrequency = minSourceFrequency, let maxSourceFrequency = maxSourceFrequency{
+            let maxGearRatio = (consumerFrequency / minSourceFrequency) / chainOrbelTransmissionGearRatio
+            let minGearRatio = (consumerFrequency / maxSourceFrequency) / chainOrbelTransmissionGearRatio
+            
+            if !(minGearRatio > stageRange.1 || maxGearRatio < stageRange.0){ // условие пересечения
+                return true
+            }
+        }
+        return false
+    }
+    
 }

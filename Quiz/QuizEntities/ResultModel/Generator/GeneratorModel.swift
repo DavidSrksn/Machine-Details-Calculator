@@ -7,9 +7,8 @@
 //
 
 struct Generator{
+    var name: String?
     
     var frequency: Double?
-    
-    var power: Double?
-    
+
 }

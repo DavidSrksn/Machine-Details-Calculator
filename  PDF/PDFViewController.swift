@@ -15,6 +15,7 @@ class PDFViewController: UIViewController{
     let pdfView = PDFView()
     
     let shareButton = UIButton()
+    let savedNotificationLabel = UILabel()
     
     init(documentData: Data?) {
         self.documentData = documentData
@@ -37,6 +38,12 @@ class PDFViewController: UIViewController{
         pdfView.backgroundColor = .black
         setupPDFView()
         setupShareButton()
+    }
+    
+    override func viewDidAppear(_ animated: Bool){
+        if type(of: presentingViewController) == QuizFinalViewController.self{
+            setupSavedNotificationView()
+        }
     }
     
     func setupPDFView(){
@@ -72,6 +79,30 @@ class PDFViewController: UIViewController{
         if let data = documentData{
         let activityController = UIActivityViewController(activityItems: [data], applicationActivities: nil)
         present(activityController, animated: true, completion: nil)
+        }
+    }
+    
+    func setupSavedNotificationView(){
+        view.addSubview(savedNotificationLabel)
+        
+        savedNotificationLabel.frame = CGRect(x: 0, y: 0, width: view.frame.width * 0.6, height: view.frame.width * 0.6)
+        savedNotificationLabel.center = view.center
+        
+        savedNotificationLabel.alpha = 0
+        savedNotificationLabel.layer.cornerRadius = 20
+        
+        savedNotificationLabel.backgroundColor = UIColor.Customs.lightBlack
+        savedNotificationLabel.textColor = .white
+
+        savedNotificationLabel.textAlignment = .center
+        savedNotificationLabel.text = "Сохранено \u{2713}"
+        savedNotificationLabel.font = UIFont(name: "HelveticaNeue", size: 25)
+        
+        UIView.animate(withDuration: 2) {
+            self.savedNotificationLabel.alpha = 1
+        }
+        UIView.animate(withDuration: 2) {
+            self.savedNotificationLabel.alpha = 0
         }
     }
     

@@ -10,15 +10,17 @@ import UIKit
 
 
 
-//extension UITextField{
-//    public func isCorrect(key: PersonData) -> Bool{
-//        if let userData = DataSource.shared.getData(key: key), userData == text{
-//            return true
-//        }else {
-//            return false
-//        }
-//    }
-//}
+extension String{
+    public func isCorrect() -> Bool{
+        if let number = Int(self), String.permittedInterval.contains(number){
+            return true
+        }else {
+            return false
+        }
+    }
+    
+    static let permittedInterval: ClosedRange = 3000...1900000000
+}
 
 // MARK: TextField status
 

@@ -52,17 +52,17 @@ class QuizQuestionModel: QuizQuestionModelProtocol {
     }
     
     public func nextQuestionOptionType(currentResult: ResultModel) -> QuizQestion?{
+      
+        if currentResult.gearbox.type.count == 1{
+            return nil
+        }
         switch type{
         case .scheme:
             return .transmission
         case .transmission:
             return .smoothness
         case .smoothness:
-            if currentResult.gearbox.type.count != 1{
             return .cost
-            }else{
-                return nil
-            }
         case .cost:
             return nil
         }
@@ -87,7 +87,3 @@ class QuizQuestionModel: QuizQuestionModelProtocol {
     }
     
 }
-
-
-// MARK: For Next Question (if needed)
-

@@ -28,6 +28,7 @@ class TransmissionOptionViewModel: OptionViewModelProtocol{
         case .C, .D:
             return
         }
+        checkGearboxTypeIsChoosed(resultModel: &resultModel)
     }
     
     private func removeGearType(resultModel: inout ResultModel, gearTypes toRemove: [GearboxType]) {
@@ -54,6 +55,16 @@ class TransmissionOptionViewModel: OptionViewModelProtocol{
             label.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
             label.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
             label.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        }
+    }
+    
+    private func checkGearboxTypeIsChoosed(resultModel: inout ResultModel){
+        let gearboxTypeOptions = resultModel.gearbox.type
+        
+        for type in gearboxTypeOptions{
+            if !type.isSuitable(resultModel: &resultModel){
+                removeGearType(resultModel: &resultModel, gearTypes: [type])
+            }
         }
     }
     
