@@ -17,7 +17,7 @@ internal enum ResultType{
     case sourceFrequency
     case emty // для пространства для кнопок
     
-    static let allCases: [ResultType] = [.scheme, .gearType, .gearStage, .sourceName,.sourceFrequency,.schemeGearRatio, .emty]
+    static let allCases: [ResultType] = [.scheme,.schemeGearRatio, .gearType, .gearStage, .sourceName,.sourceFrequency, .emty]
 }
 
 extension UILabel{
@@ -50,4 +50,5 @@ extension UILabel{
         
         return label
     }
+    
 }

@@ -17,8 +17,24 @@ class StartViewController: UIViewController{
         view.backgroundColor = .white
         setupStartButton()
         setupOpenExistingButton()
+        setupTickerView()
     }
     
+    func setupTickerView(){
+        let superView = UIView()
+        let tickerLabel = UILabel()
+        
+        view.addSubview(superView)
+         
+        superView.frame = CGRect(x: 0, y: view.bounds.maxY - 50, width: view.bounds.width, height: 50)
+        tickerLabel.frame = superView.bounds
+        
+        tickerLabel.text = "created by DavidS"
+        tickerLabel.textAlignment = .center
+        
+        let tickerView = TickerView(duration: 5, tickerView: tickerLabel, superView: superView, interval: 30)
+        tickerView.start()
+    }
     
     func setupStartButton(){
         view.addSubview(startButton)

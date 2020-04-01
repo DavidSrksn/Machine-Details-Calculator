@@ -20,6 +20,10 @@ class QuizFinalViewController: UIViewController{
     let savePDFButton = UIButton()
     let finishButton = UIButton()
     
+    var resultGearDisplay = CADisplayLink()
+    let startTime = Date()
+    var resultGearRatioLabel = UILabel()
+    
     init(result: ResultModel) {
         self.result = result
         super.init(nibName: nil, bundle: nil)
@@ -50,6 +54,10 @@ class QuizFinalViewController: UIViewController{
         setupFinishButton()
         setupSavePDFButton()
         setupResultStackView()
+        
+        resultGearDisplay = CADisplayLink(target: self, selector: #selector(resultGearDisplayAction))
+        resultGearDisplay.preferredFramesPerSecond = 50
+        resultGearDisplay.add(to: .main, forMode: .default)
     }
     
     func calculateSourceGenerator() -> (Double, String)?{
@@ -87,7 +95,7 @@ class QuizFinalViewController: UIViewController{
     
     func searchNearestRight(to element: Double, in sequence: [(Double,String)]) -> (Double,String){
         var temp = sequence.max { (first, second) -> Bool in
-            first.0 >= second.0
+            first.0 <= second.0
         }
         
         for unit in sequence{
@@ -127,8 +135,7 @@ class QuizFinalViewController: UIViewController{
         let pdfCreator = PDFConfigurator(result: result)
         let data = pdfCreator.createResultPDF()
         
-//        let navigationController = UINavigationController()
-        let viewController = PDFViewController(documentData: data)
+        let viewController = PDFViewController(documentData: data, showSaveNotification: true)
         self.navigationController?.pushViewController(viewController, animated: true)
         
     }
@@ -176,6 +183,24 @@ class QuizFinalViewController: UIViewController{
         finishButton.setTitleColor(UIColor.Customs.lightBlack, for: .normal)
     }
     
+    @objc func resultGearDisplayAction(){
+        let startValue: Double = 0
+        let endValue: Double = result.gearRatio(gearboxRatio: result.gearbox.gearRatio ?? 0)
+        
+        let duration: Double = 1.5
+        let now = Date()
+        let passedTime = now.timeIntervalSince(startTime)
+        
+        if passedTime > duration{
+            resultGearRatioLabel.text = String.resultShemeGearRatioFormula(result: result) + "\(round(endValue))"
+            resultGearDisplay.invalidate()
+        }else{
+            let perc = passedTime / duration
+            let value = startValue + perc * (endValue - startValue)
+            resultGearRatioLabel.text =  String.resultShemeGearRatioFormula(result: result) + "\(round(value))"
+        }
+    }
+    
     func setupScrollView(){
         view.addSubview(scrollView)
         
@@ -219,6 +244,10 @@ class QuizFinalViewController: UIViewController{
         stackView.spacing = 20
         
         stackView.tintColor = .black
+        
+        if headerLabel.text == UILabel.resultHeader(type: .schemeGearRatio).text{
+            resultGearRatioLabel = description
+        }
         
         stackView.addArrangedSubview(headerLabel)
         stackView.addArrangedSubview(description)

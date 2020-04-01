@@ -33,28 +33,27 @@ extension String{
         case .emty:
             return ""
         case .schemeGearRatio:
-            return resultShemeGearRatio(result: result)
+            return resultShemeGearRatioFormula(result: result)
         case .sourceName:
             return result.sourceGenerator.name ?? "Не найдено"
         }
     }
     
-    static func resultShemeGearRatio(result: ResultModel) -> String{
-        let schemeGearRatio = Int(result.gearRatio(gearboxRatio: result.gearbox.gearRatio ?? 0))
-        
+    static func resultShemeGearRatioFormula(result: ResultModel) -> String{
         var chainTransmissionText: String = ""
         var beltTransmissionText: String = ""
         
         if result.chainTransmission != nil{
             chainTransmissionText = "Uцеп"
-            return "Uред x \(chainTransmissionText) = \(schemeGearRatio)"
+            return "Uред x \(chainTransmissionText) = "
         }
         if result.beltTransmission != nil{
             beltTransmissionText = "Uрем"
-            return "Uред x \(beltTransmissionText) = \(schemeGearRatio)"
+            return "Uред x \(beltTransmissionText) = "
         }
-        return "Uред = \(schemeGearRatio)"
+        return "Uред = "
     }
+    
     
     static func resultGearStage(result: ResultModel) -> String{
         let gearboxStage = result.gearbox.stageNumber.first

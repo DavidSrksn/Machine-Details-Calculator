@@ -51,7 +51,7 @@ class SavedFilesViewController: UIViewController, SavedFilesViewControllerProtoc
     
     func openPDF(index: Int){
         let data = files[index].1
-        let viewController = PDFViewController(documentData: data)
+        let viewController = PDFViewController(documentData: data, showSaveNotification: false)
         self.navigationController?.pushViewController(viewController, animated: true)
     }
     

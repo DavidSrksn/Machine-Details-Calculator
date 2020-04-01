@@ -11,14 +11,17 @@ import PDFKit
 
 class PDFViewController: UIViewController{
     
+    var showSaveNotification: Bool // показывать ли "Сохранено"
+    let savedNotificationLabel = UILabel()
+    
     var documentData: Data?
     let pdfView = PDFView()
     
     let shareButton = UIButton()
-    let savedNotificationLabel = UILabel()
     
-    init(documentData: Data?) {
+    init(documentData: Data?, showSaveNotification: Bool) {
         self.documentData = documentData
+        self.showSaveNotification = showSaveNotification
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -41,7 +44,7 @@ class PDFViewController: UIViewController{
     }
     
     override func viewDidAppear(_ animated: Bool){
-        if type(of: presentingViewController) == QuizFinalViewController.self{
+        if showSaveNotification{
             setupSavedNotificationView()
         }
     }
@@ -85,17 +88,21 @@ class PDFViewController: UIViewController{
     func setupSavedNotificationView(){
         view.addSubview(savedNotificationLabel)
         
-        savedNotificationLabel.frame = CGRect(x: 0, y: 0, width: view.frame.width * 0.6, height: view.frame.width * 0.6)
-        savedNotificationLabel.center = view.center
+        savedNotificationLabel.translatesAutoresizingMaskIntoConstraints = false
         
+        savedNotificationLabel.centerYAnchor.constraint(equalTo: pdfView.centerYAnchor).isActive = true
+        savedNotificationLabel.centerXAnchor.constraint(equalTo: pdfView.centerXAnchor).isActive = true
+        savedNotificationLabel.widthAnchor.constraint(equalToConstant: view.frame.width * 0.45).isActive = true
+        savedNotificationLabel.heightAnchor.constraint(equalToConstant: view.frame.width * 0.45).isActive = true
+
+        savedNotificationLabel.layer.cornerRadius = 60
         savedNotificationLabel.alpha = 0
-        savedNotificationLabel.layer.cornerRadius = 20
         
         savedNotificationLabel.backgroundColor = UIColor.Customs.lightBlack
         savedNotificationLabel.textColor = .white
 
         savedNotificationLabel.textAlignment = .center
-        savedNotificationLabel.text = "Сохранено \u{2713}"
+        savedNotificationLabel.text = "Сохранено  \u{2713}"
         savedNotificationLabel.font = UIFont(name: "HelveticaNeue", size: 25)
         
         UIView.animate(withDuration: 2) {

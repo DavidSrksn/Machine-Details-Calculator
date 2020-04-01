@@ -45,7 +45,7 @@
 		9A716FBB241697C60070E214 /* TransmissionOptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A716FBA241697C60070E214 /* TransmissionOptionViewModel.swift */; };
 		9A716FC0241698070070E214 /* TransmissionText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A716FBF241698070070E214 /* TransmissionText.swift */; };
 		9A767A3924223A1200EC5E5A /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A767A3824223A1200EC5E5A /* NavigationController.swift */; };
-		9A767A3B2422448800EC5E5A /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A767A3A2422448800EC5E5A /* FileManager.swift */; };
+		9A8F27D62433AF120091A805 /* Ticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8F27D52433AF120091A805 /* Ticker.swift */; };
 		9A9E2A092414008C0000340A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E2A082414008C0000340A /* AppDelegate.swift */; };
 		9A9E2A0B2414008C0000340A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E2A0A2414008C0000340A /* SceneDelegate.swift */; };
 		9A9E2A0D2414008C0000340A /* QuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E2A0C2414008C0000340A /* QuizViewController.swift */; };
@@ -125,7 +125,7 @@
 		9A716FBA241697C60070E214 /* TransmissionOptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransmissionOptionViewModel.swift; sourceTree = "<group>"; };
 		9A716FBF241698070070E214 /* TransmissionText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransmissionText.swift; sourceTree = "<group>"; };
 		9A767A3824223A1200EC5E5A /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
-		9A767A3A2422448800EC5E5A /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
+		9A8F27D52433AF120091A805 /* Ticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ticker.swift; sourceTree = "<group>"; };
 		9A9E2A052414008C0000340A /* Machine Details.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Machine Details.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A9E2A082414008C0000340A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9A9E2A0A2414008C0000340A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -282,6 +282,7 @@
 				9A6D3899241E586500E25A1D /* Warnings.swift */,
 				9A07DBDC241CC149004E4C25 /* Alert.swift */,
 				9A767A3824223A1200EC5E5A /* NavigationController.swift */,
+				9A8F27D52433AF120091A805 /* Ticker.swift */,
 			);
 			path = "Custom Components";
 			sourceTree = "<group>";
@@ -299,7 +300,6 @@
 			isa = PBXGroup;
 			children = (
 				9A6D38A4241E8FD600E25A1D /* QuizFinalViewController.swift */,
-				9A767A3A2422448800EC5E5A /* FileManager.swift */,
 				9A6D38A8241E9B5D00E25A1D /* Components */,
 			);
 			path = QuizFinalViewController;
@@ -648,6 +648,7 @@
 				9A6D38A2241E7B8000E25A1D /* GeneratorComponents.swift in Sources */,
 				9A9E2A0D2414008C0000340A /* QuizViewController.swift in Sources */,
 				9A6D388C241E493E00E25A1D /* SmoothnessOptionText.swift in Sources */,
+				9A8F27D62433AF120091A805 /* Ticker.swift in Sources */,
 				9A6D389C241E589D00E25A1D /* InputDataPresenter.swift in Sources */,
 				9AECCA042423BAA300524CB1 /* SavedFilesViewController.swift in Sources */,
 				9A716FB224168C8B0070E214 /* QuizRouter.swift in Sources */,
@@ -668,7 +669,6 @@
 				9A6D388E241E495100E25A1D /* SmoothnessOptionViewModel.swift in Sources */,
 				9A6D38A5241E8FD600E25A1D /* QuizFinalViewController.swift in Sources */,
 				9A9E2A092414008C0000340A /* AppDelegate.swift in Sources */,
-				9A767A3B2422448800EC5E5A /* FileManager.swift in Sources */,
 				9AECCA0E2423E21A00524CB1 /* SavedFilesViewControllerP.swift in Sources */,
 				9A6D38AA241E9B7800E25A1D /* ResultPrinters.swift in Sources */,
 				9ABB8A74241A05870010D9DD /* ChainTransmissionModel.swift in Sources */,

@@ -8,6 +8,7 @@
 
 import UIKit
 import Foundation
+import CoreGraphics
 
 class QuizRouter: QuizRouterProtocol {
 
@@ -26,6 +27,7 @@ class QuizRouter: QuizRouterProtocol {
         if let nextModelIndex = indexOfModel{
             viewController.questionModel = navigationStack[nextModelIndex]
         }else{
+            animateTransition(duration: 0.3)
             navigationStack.append(question)
             viewController.questionModel = navigationStack.last!
         }
@@ -56,6 +58,28 @@ class QuizRouter: QuizRouterProtocol {
                 navigationStack.removeLast()
             }
         }
+    }
+    
+    private func animateTransition(duration: Double){
+        guard let image = UIImage.makeScreenShot(view: viewController.view) else {return}
+        
+        let imageView = UIImageView()
+        imageView.image = image
+        imageView.frame = viewController.view.bounds
+        imageView.center = viewController.view.center
+        
+        viewController.view.addSubview(imageView)
+        
+        let transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+        
+        imageView.isOpaque = true
+        UIView.animate(withDuration: duration, animations: {
+            imageView.transform = transform
+            imageView.alpha = 0
+        }) { (bool) in
+            imageView.removeFromSuperview()
+        }
+        
     }
     
 }

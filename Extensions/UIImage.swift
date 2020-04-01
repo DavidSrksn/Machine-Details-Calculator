@@ -35,4 +35,14 @@ extension UIImage{
         return image
     }
     
+    static func makeScreenShot(view: UIView) -> UIImage?{
+        UIGraphicsBeginImageContext(view.frame.size)
+        guard let context = UIGraphicsGetCurrentContext() else{return nil}
+        view.layer.render(in: context)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return image
+    }
+    
 }
